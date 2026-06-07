@@ -23,32 +23,60 @@ html {
 }
 
 body::before {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  content: "";
-  background:
-    radial-gradient(circle at 18% 12%, rgba(255, 224, 138, 0.28), transparent 18rem),
-    radial-gradient(circle at 78% 20%, rgba(191, 229, 255, 0.24), transparent 17rem),
-    linear-gradient(115deg, rgba(47, 38, 31, 0.035) 0 1px, transparent 1px 100%),
-    linear-gradient(#f8f3ea, #f2ece2);
-  background-size: auto, auto, 18px 18px, auto;
+  display: none;
 }
 
 body::after {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   content: "";
-  opacity: 0.33;
+  opacity: 0.24;
   background-image:
     radial-gradient(rgba(47, 38, 31, 0.18) 0.6px, transparent 0.7px),
     radial-gradient(rgba(255, 255, 255, 0.45) 0.7px, transparent 0.8px);
   background-position: 0 0, 9px 12px;
   background-size: 24px 24px, 28px 28px;
   mix-blend-mode: multiply;
+}
+
+.site-shell {
+  background:
+    linear-gradient(115deg, rgba(47, 38, 31, 0.025) 0 1px, transparent 1px 100%),
+    linear-gradient(#f8f3ea, #f2ece2);
+  background-size: 18px 18px, auto;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.site-shell::before {
+  position: absolute;
+  top: -24rem;
+  left: -24rem;
+  z-index: 0;
+  width: 54rem;
+  height: 54rem;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(ellipse at center, rgba(205, 172, 228, 0.34) 0%, rgba(205, 172, 228, 0.2) 36%, rgba(205, 172, 228, 0.08) 58%, transparent 76%);
+  border-radius: 50%;
+  filter: blur(20px);
+  transform: scaleX(1.35) scaleY(0.92) rotate(-18deg);
+}
+
+.site-shell::after {
+  position: absolute;
+  right: 8%;
+  top: 52rem;
+  z-index: 0;
+  width: 32rem;
+  height: 24rem;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(ellipse at center, rgba(178, 234, 232, 0.22) 0%, rgba(178, 234, 232, 0.08) 54%, transparent 76%);
+  border-radius: 50%;
+  filter: blur(24px);
 }
 
 ::selection {
@@ -68,151 +96,665 @@ body::after {
   padding: 5rem 1.25rem;
 }
 
-.paper-section {
-  background:
-    linear-gradient(110deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)),
-    radial-gradient(circle at 48% 10%, rgba(217, 194, 255, 0.2), transparent 20rem);
+.floating-nav {
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  min-height: 70px;
+  gap: clamp(24px, 2.2vw, 34px);
+  padding: 0 10px 0 18px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(118, 64, 184, 0.46);
+  border-radius: 16px;
+  box-shadow:
+    0 12px 40px rgba(66, 41, 95, 0.09),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(12px);
 }
 
-.figma-hero {
-  position: relative;
-  width: min(100%, 1733px);
-  min-height: clamp(560px, 58.9vw, 1020px);
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.76);
-  border: clamp(1px, 0.12vw, 2px) solid #800020;
-  border-radius: clamp(16px, 1.16vw, 20px);
-}
-
-.figma-search {
-  position: absolute;
-  top: 4.6%;
-  left: 8.65%;
-  right: 8.65%;
-  z-index: 3;
-  display: flex;
-  height: clamp(52px, 5.1vw, 89px);
-  align-items: center;
-  justify-content: flex-end;
-  padding-inline: clamp(24px, 2.6vw, 45px);
-  background: rgba(255, 255, 255, 0.18);
-  border: clamp(2px, 0.24vw, 4px) solid #800020;
-  border-radius: clamp(22px, 1.7vw, 30px);
-  box-shadow: 0 0 clamp(28px, 5.65vw, 98px) rgba(128, 0, 32, 0.9);
-}
-
-.figma-search img {
-  width: clamp(34px, 3.2vw, 56px);
-  height: auto;
-}
-
-.figma-hero-copy {
-  position: absolute;
-  top: 22.7%;
-  left: 6.1%;
-  z-index: 2;
-  color: #000;
-}
-
-.figma-hero-copy h1 {
-  font-size: clamp(52px, 4.85vw, 84px);
+.floating-brand {
+  flex: 0 0 auto;
+  color: #6b38a4;
+  font-size: clamp(2.2rem, 3.1vw, 3rem);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1;
+}
+
+.floating-brand::after {
+  margin-left: 0.18em;
+  color: #f90a46;
+  content: ".";
+}
+
+.site-floaters {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+}
+
+.site-floater {
+  position: absolute;
+  width: var(--floater-size, 1.25rem);
+  max-width: 1.75rem;
+  height: auto;
+  opacity: 0.72;
+  filter: saturate(0.96);
+  animation: site-doodle-float 9s ease-in-out infinite;
+}
+
+.site-floater-1 {
+  --floater-size: 1.15rem;
+  top: 10rem;
+  right: 9%;
+}
+
+.site-floater-2 {
+  --floater-size: 1.05rem;
+  top: 23rem;
+  left: 6%;
+  animation-delay: -2s;
+}
+
+.site-floater-3 {
+  --floater-size: 1.35rem;
+  top: 38rem;
+  right: 8%;
+  animation-delay: -4s;
+}
+
+.site-floater-4 {
+  --floater-size: 1.45rem;
+  top: 54rem;
+  left: 4%;
+  opacity: 0.62;
+  animation-delay: -1s;
+}
+
+.site-floater-5 {
+  --floater-size: 1.3rem;
+  top: 70rem;
+  right: 14%;
+  opacity: 0.6;
+  animation-delay: -5s;
+}
+
+.site-floater-6 {
+  --floater-size: 1rem;
+  top: 88rem;
+  left: 18%;
+  opacity: 0.75;
+  animation-delay: -3s;
+}
+
+.site-floater-7 {
+  --floater-size: 1rem;
+  top: 106rem;
+  right: 6%;
+  opacity: 0.68;
+  animation-delay: -6s;
+}
+
+.site-floater-8 {
+  --floater-size: 1.18rem;
+  top: 124rem;
+  left: 10%;
+  opacity: 0.66;
+  animation-delay: -4.5s;
+}
+
+.site-floater-9 {
+  --floater-size: 0.9rem;
+  top: 142rem;
+  right: 22%;
+  opacity: 0.78;
+  animation-delay: -7s;
+}
+
+.site-floater-10 {
+  --floater-size: 1.38rem;
+  top: 160rem;
+  left: 5%;
+  opacity: 0.6;
+  animation-delay: -2.5s;
+}
+
+.site-floater-11 {
+  --floater-size: 1.25rem;
+  top: 178rem;
+  right: 10%;
+  opacity: 0.62;
+  animation-delay: -5.5s;
+}
+
+.site-floater-12 {
+  --floater-size: 1.18rem;
+  top: 196rem;
+  left: 30%;
+  opacity: 0.6;
+  animation-delay: -8s;
+}
+
+.site-floater-13 {
+  --floater-size: 1.12rem;
+  top: 214rem;
+  right: 18%;
+  opacity: 0.66;
+  animation-delay: -3.5s;
+}
+
+.site-floater-14 {
+  --floater-size: 1rem;
+  top: 232rem;
+  left: 14%;
+  opacity: 0.64;
+  animation-delay: -6.5s;
+}
+
+.site-floater-15 {
+  --floater-size: 0.9rem;
+  top: 250rem;
+  right: 7%;
+  opacity: 0.76;
+  animation-delay: -1.8s;
+}
+
+.site-floater-16 {
+  --floater-size: 1.32rem;
+  top: 268rem;
+  left: 8%;
+  opacity: 0.58;
+  animation-delay: -7.5s;
+}
+
+.hero-section {
+  position: relative;
+  padding: 0;
+  isolation: isolate;
+}
+
+.figma-hello-hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(520px, 52vw, 700px);
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
+}
+
+.hello-doodle {
+  position: absolute;
+  z-index: 2;
+  width: auto;
+  height: auto;
+  animation: doodle-float 6.5s ease-in-out infinite;
+}
+
+.hello-doodle-lines {
+  top: 27%;
+  left: 6.5%;
+  width: clamp(18px, 1.75vw, 25px);
+}
+
+.hello-doodle-sun {
+  top: 59%;
+  left: 10.2%;
+  width: clamp(23px, 2.15vw, 31px);
+  animation-delay: -1.5s;
+}
+
+.hello-doodle-flower {
+  top: 17%;
+  left: 22.5%;
+  width: clamp(17px, 1.55vw, 22px);
+  animation-delay: -3s;
+}
+
+.hello-doodle-heart {
+  top: 38%;
+  left: 30.5%;
+  width: clamp(17px, 1.45vw, 21px);
+  animation-delay: -2.2s;
+}
+
+.hello-doodle-smile {
+  top: 24%;
+  left: 58.5%;
+  width: clamp(22px, 2.05vw, 30px);
+  animation-delay: -4s;
+}
+
+.hello-doodle-under-heart {
+  top: 47%;
+  left: 42%;
+  width: clamp(15px, 1.25vw, 19px);
+  opacity: 0.82;
+  animation-delay: -5.2s;
+}
+
+.hello-doodle-under-flower {
+  top: 56%;
+  left: 58%;
+  width: clamp(16px, 1.35vw, 21px);
+  opacity: 0.8;
+  animation-delay: -1.8s;
+}
+
+.hello-doodle-under-lines {
+  top: 69%;
+  left: 33%;
+  width: clamp(18px, 1.65vw, 24px);
+  opacity: 0.76;
+  transform: rotate(-12deg);
+  animation-delay: -3.8s;
+}
+
+.hello-creative-mode {
+  position: absolute;
+  top: 12.5%;
+  right: 9.4%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  font-size: 16px;
+  font-weight: 300;
+  color: #000;
+  background: rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(118, 64, 184, 0.38);
+  border-radius: 10px;
+  box-shadow:
+    0 10px 26px rgba(66, 41, 95, 0.07),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.hello-creative-mode:hover,
+.hello-creative-mode:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(249, 10, 70, 0.5);
+  box-shadow:
+    0 14px 32px rgba(66, 41, 95, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+  outline: none;
+}
+
+.creative-on .hello-creative-mode {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(249, 10, 70, 0.48);
+}
+
+.creative-options {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  z-index: 8;
+  display: flex;
+  width: max-content;
+  max-width: min(90vw, 420px);
+  gap: 0.4rem;
+  padding: 0.42rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(118, 64, 184, 0.38);
+  border-radius: 999px;
+  box-shadow:
+    0 16px 36px rgba(66, 41, 95, 0.13),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(12px);
+  transform: translateX(-50%);
+}
+
+.creative-option {
+  min-height: 34px;
+  padding: 0.4rem 0.72rem;
+  color: #724899;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  white-space: nowrap;
+  background: rgba(248, 243, 234, 0.72);
+  border: 1px solid rgba(118, 64, 184, 0.16);
+  border-radius: 999px;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.creative-option:hover,
+.creative-option:focus-visible {
+  color: #f90a46;
+  background: rgba(255, 255, 255, 0.9);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.hello-toggle {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 32px;
+  background: #e8e9ea;
+  border-radius: 31px;
+}
+
+.hello-toggle span {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 9999px;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.hello-toggle.is-on {
+  background: #f90a46;
+}
+
+.hello-toggle.is-on span {
+  background: #fff7fb;
+  transform: translateX(24px);
+}
+
+.hello-character-wrap {
+  position: absolute;
+  right: 5.2%;
+  top: 16.4%;
+  z-index: 2;
+  width: min(26vw, 355px);
+}
+
+.hello-character {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.creative-on .hello-character {
+  filter: drop-shadow(0 14px 20px rgba(114, 72, 153, 0.12));
+  transform: translateY(-5px) rotate(-1deg);
+}
+
+.character-pop {
+  position: absolute;
+  top: 26%;
+  right: 4%;
+  z-index: 3;
+  color: #f90a46;
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: clamp(1.35rem, 2.4vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.65);
+  transform: translateY(8px) rotate(-8deg) scale(0.7);
+}
+
+.mood-sound .character-pop {
+  animation: pop-label 760ms ease-out 2;
+}
+
+.mood-sound .hello-character {
+  animation: character-bounce 360ms ease-in-out 2;
+}
+
+.character-line {
+  position: absolute;
+  top: calc(100% + 3.95rem);
+  left: 50%;
+  z-index: 9;
+  width: min(86vw, 380px);
+  padding: 0.9rem 1.05rem;
+  color: #5f328f;
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: clamp(1.05rem, 1.35vw, 1.32rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid rgba(249, 10, 70, 0.38);
+  border-radius: 20px;
+  box-shadow:
+    0 18px 38px rgba(66, 41, 95, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateX(-50%) translateY(10px) rotate(-1deg) scale(0.96);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.mood-phrase .character-line {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) rotate(-1deg) scale(1);
+}
+
+.character-spark {
+  position: absolute;
+  z-index: 3;
+  color: #f90a46;
+  font-weight: 900;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.character-spark-1 {
+  top: 6%;
+  left: 24%;
+}
+
+.character-spark-2 {
+  right: 8%;
+  top: 18%;
+}
+
+.creative-on .character-spark {
+  opacity: 1;
+  animation: sparkle-pop 900ms ease-in-out infinite alternate;
+}
+
+.hello-content {
+  position: absolute;
+  top: 20.8%;
+  left: 18%;
+  z-index: 4;
+  display: grid;
+  justify-items: center;
+  width: min(46vw, 628px);
+}
+
+.hello-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 3.65vw, 50px);
+  width: 100%;
+}
+
+.hello-arrow {
+  width: clamp(22px, 2.5vw, 34px);
+  height: auto;
+  transform: rotate(180deg) scaleY(-1);
+}
+
+.hello-title-row h1 {
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: clamp(58px, 6.6vw, 90px);
+  font-weight: 400;
+  line-height: 1;
+  color: #f90a46;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.hello-title-row h1 span {
+  font-family: var(--font-geist-sans, Arial), Helvetica, sans-serif;
+  font-weight: 1000;
+  letter-spacing: -0.04em;
+}
+
+.hello-subtitle {
+  width: 100%;
+  margin-top: 10px;
+  font-size: clamp(26px, 2.93vw, 40px);
+  font-weight: 300;
+  line-height: 1.25;
+  color: #724899;
+  text-align: center;
   letter-spacing: 0;
 }
 
-.figma-hero-copy h1 span {
-  display: block;
+.hello-subtitle strong {
   font-weight: 800;
-  color: #800020;
 }
 
-.figma-role {
-  width: min(31vw, 396px);
-  margin-top: clamp(48px, 5.9vw, 102px);
-  font-size: clamp(24px, 1.96vw, 34px);
-  font-style: italic;
-  line-height: 1.24;
+.hello-cv-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  margin-top: 10px;
+  padding: 8px 4px;
+  font-size: 16px;
+  font-weight: 300;
+  color: #a80075;
+  background: rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(118, 64, 184, 0.32);
+  border-radius: 8px;
+  box-shadow:
+    0 8px 22px rgba(66, 41, 95, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
 }
 
-.figma-tags {
-  width: min(30vw, 396px);
-  margin-top: clamp(50px, 5.5vw, 95px);
-  font-size: clamp(22px, 1.62vw, 28px);
-  line-height: 1.22;
+
+.about-figma-section {
+  position: relative;
+  max-width: 1365px;
+  margin-inline: auto;
+  margin-top: -2.75rem;
+  padding: 0 53px 70px;
 }
 
-.figma-character {
+.about-doodle {
   position: absolute;
-  top: 12.9%;
-  left: 24.6%;
-  z-index: 1;
-  width: min(53.4vw, 926px);
+  z-index: 2;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.72;
+  animation: doodle-float 7s ease-in-out infinite;
+}
+
+.about-doodle-sun {
+  top: 18%;
+  left: 5%;
+  width: clamp(23px, 2.2vw, 31px);
+  animation-delay: -2s;
+}
+
+.about-doodle-heart {
+  right: 12%;
+  top: 14%;
+  width: clamp(16px, 1.45vw, 22px);
+  animation-delay: -4s;
+}
+
+.about-doodle-flower {
+  right: 3%;
+  bottom: 18%;
+  width: clamp(17px, 1.55vw, 23px);
+  animation-delay: -5.4s;
+}
+
+.about-arrows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 44px;
+  align-items: center;
+}
+
+.about-arrows img {
+  width: 100%;
+  height: 51px;
+  object-fit: fill;
+}
+
+.about-figma-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: start;
+  min-height: 404px;
+  margin-top: 64px;
+}
+
+.about-illustration {
+  position: relative;
+  display: flex;
+  gap: 22px;
+  align-items: start;
+}
+
+.about-hello {
+  width: min(11vw, 145px);
+  min-width: 92px;
   height: auto;
 }
 
-.figma-bubble {
-  position: absolute;
-  top: 15.4%;
-  right: 3.4%;
-  z-index: 2;
+.about-illustration > img:last-child {
+  width: min(28.2vw, 384px);
+  min-width: 270px;
+  height: auto;
+}
+
+.about-copy {
   display: grid;
-  width: min(25.3vw, 438px);
-  aspect-ratio: 438 / 440;
-  place-items: center;
-  padding: 7% 10% 14% 15%;
+  gap: 29px;
+}
+
+.about-title-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.about-title-row h2 {
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: clamp(58px, 6.6vw, 90px);
+  font-weight: 400;
+  line-height: 1;
+  color: #724899;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.about-question {
+  width: auto;
+  height: clamp(64px, 7.2vw, 99px);
+}
+
+.about-question-left {
+  transform: rotate(180deg);
+}
+
+.about-text {
+  max-width: 650px;
+  padding-inline: 15px;
+  font-size: clamp(18px, 1.76vw, 24px);
+  font-weight: 300;
+  line-height: 1.23;
   color: #000;
-  background-image: url("/figma/speech-bubble.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  letter-spacing: 0;
 }
 
-.figma-bubble p {
-  width: 82%;
-  font-size: clamp(19px, 1.62vw, 28px);
-  line-height: 1.34;
-}
-
-.figma-bubble strong {
-  color: #800020;
-  font-weight: 800;
-}
-
-.figma-dot {
-  position: absolute;
-  z-index: 2;
-  width: clamp(13px, 1.45vw, 25px);
-  aspect-ratio: 1;
-  border: 3px solid #000;
-  border-radius: 9999px;
-}
-
-.figma-dot-1 {
-  top: 40%;
-  right: 22.5%;
-}
-
-.figma-dot-2 {
-  top: 43.6%;
-  right: 25.1%;
-}
-
-.figma-dot-3 {
-  top: 46.4%;
-  right: 27.7%;
-}
-
-.floating-mark {
-  position: absolute;
-  font-family: var(--font-geist-mono, "Courier New"), monospace;
-  font-size: 1.5rem;
-  font-weight: 900;
-  animation: soft-float 6s ease-in-out infinite;
-}
-
-.animate-soft-float {
-  animation: soft-float 5s ease-in-out infinite;
+.about-text strong {
+  font-weight: 700;
 }
 
 .orbit-stage {
@@ -282,12 +824,15 @@ body::after {
   transform-origin: center;
 }
 
-.orbit-stage:hover .orbit-card,
-.orbit-stage.is-paused .orbit-card {
+.orbit-card {
   animation-play-state: paused;
 }
 
-.orbit-card {
+.orbit-stage:hover .orbit-card {
+  animation-play-state: running;
+}
+
+.orbit-stage.is-paused .orbit-card {
   position: absolute;
   top: 0;
   left: 0;
@@ -475,12 +1020,55 @@ body::after {
   box-shadow: 0 20px 45px rgba(54, 43, 35, 0.11);
 }
 
-@keyframes soft-float {
+@keyframes doodle-float {
   0%, 100% {
-    transform: translate3d(0, 0, 0) rotate(-2deg);
+    transform: translate3d(0, 0, 0) rotate(-1deg);
   }
   50% {
-    transform: translate3d(0, -10px, 0) rotate(3deg);
+    transform: translate3d(0, -12px, 0) rotate(4deg);
+  }
+}
+
+@keyframes site-doodle-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg);
+  }
+  50% {
+    transform: translate3d(12px, -18px, 0) rotate(5deg);
+  }
+}
+
+@keyframes sparkle-pop {
+  from {
+    transform: translateY(0) scale(0.9) rotate(-8deg);
+  }
+  to {
+    transform: translateY(-8px) scale(1.12) rotate(8deg);
+  }
+}
+
+@keyframes character-bounce {
+  0%,
+  100% {
+    transform: translateY(-5px) rotate(-1deg) scale(1);
+  }
+  45% {
+    transform: translateY(-14px) rotate(1deg) scale(1.025);
+  }
+}
+
+@keyframes pop-label {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) rotate(-8deg) scale(0.7);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px) rotate(-8deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) rotate(6deg) scale(1.18);
   }
 }
 
@@ -536,67 +1124,122 @@ body::after {
 }
 
 @media (max-width: 900px) {
-  .figma-hero {
-    min-height: 760px;
+  .floating-nav {
+    width: min(100%, 430px);
+    min-height: 64px;
   }
 
-  .figma-search {
-    top: 28px;
-    left: 24px;
-    right: 24px;
+  .floating-brand {
+    font-size: 2.2rem;
   }
 
-  .figma-hero-copy {
-    top: 122px;
-    left: 32px;
+  .figma-hello-hero {
+    min-height: 560px;
   }
 
-  .figma-hero-copy h1 {
-    font-size: clamp(46px, 10vw, 70px);
+  .hello-content {
+    top: 20%;
+    left: 50%;
+    width: 70%;
+    transform: translateX(-50%);
   }
 
-  .figma-role {
-    width: 260px;
-    margin-top: 34px;
-    font-size: 25px;
+  .hello-character-wrap {
+    top: auto;
+    right: 1%;
+    bottom: 8%;
+    width: min(42vw, 310px);
   }
 
-  .figma-tags {
-    width: 230px;
-    margin-top: 36px;
-    font-size: 22px;
+  .hello-creative-mode {
+    top: 12%;
+    right: 3%;
+    font-size: 13px;
   }
 
-  .figma-character {
-    top: 238px;
-    left: 35%;
-    width: 560px;
-    max-width: 75vw;
+  .creative-options {
+    top: calc(100% + 0.55rem);
   }
 
-  .figma-bubble {
-    top: 135px;
-    right: 20px;
-    width: 245px;
+  .character-line {
+    top: calc(100% + 3.95rem);
   }
 
-  .figma-bubble p {
-    font-size: 16px;
+  .hello-doodle-flower {
+    top: 16%;
+    left: 14%;
   }
 
-  .figma-dot-1 {
-    top: 330px;
-    right: 182px;
+  .hello-doodle-heart {
+    top: 42%;
+    left: 18%;
   }
 
-  .figma-dot-2 {
-    top: 365px;
-    right: 210px;
+  .hello-doodle-smile {
+    top: 19%;
+    left: 63%;
   }
 
-  .figma-dot-3 {
-    top: 398px;
-    right: 238px;
+  .hello-doodle-under-heart {
+    top: 50%;
+    left: 24%;
+  }
+
+  .hello-doodle-under-flower {
+    top: 58%;
+    left: 66%;
+  }
+
+  .hello-doodle-under-lines {
+    top: 73%;
+    left: 42%;
+  }
+
+  .about-figma-section {
+    margin-top: -2rem;
+    padding: 0 24px 56px;
+  }
+
+  .about-doodle-sun {
+    top: 9%;
+    left: 6%;
+  }
+
+  .about-doodle-heart {
+    top: 12%;
+    right: 9%;
+  }
+
+  .about-doodle-flower {
+    right: 8%;
+    bottom: 8%;
+  }
+
+  .about-arrows {
+    gap: 24px;
+  }
+
+  .about-figma-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 42px;
+  }
+
+  .about-illustration {
+    justify-content: center;
+  }
+
+  .about-illustration > img:last-child {
+    width: min(52vw, 360px);
+  }
+
+  .about-copy {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about-title-row {
+    justify-content: center;
   }
 
   .orbit-stage {
@@ -643,71 +1286,185 @@ body::after {
 }
 
 @media (max-width: 640px) {
-  .figma-hero {
-    min-height: 760px;
+  .floating-nav {
+    min-height: 60px;
+    padding-inline: 14px;
   }
 
-  .figma-search {
-    height: 54px;
-    border-width: 2px;
-    box-shadow: 0 0 32px rgba(128, 0, 32, 0.5);
+  .figma-hello-hero {
+    min-height: 560px;
   }
 
-  .figma-hero-copy {
-    top: 108px;
-    left: 24px;
+  .hello-content {
+    top: 19%;
+    width: 82%;
   }
 
-  .figma-hero-copy h1 {
-    font-size: clamp(42px, 12vw, 58px);
+  .hello-title-row {
+    gap: 14px;
   }
 
-  .figma-role {
-    width: 220px;
+  .hello-title-row h1 {
+    font-size: clamp(52px, 15vw, 74px);
+  }
+
+  .hello-subtitle {
+    font-size: clamp(22px, 7vw, 31px);
+  }
+
+  .hello-cv-button {
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  .hello-character-wrap {
+    right: -23%;
+    bottom: 5%;
+    width: min(70vw, 320px);
+  }
+
+  .hello-creative-mode {
+    top: 10%;
+    right: 10px;
+    gap: 6px;
+    padding-inline: 7px;
+    font-size: 11px;
+  }
+
+  .hello-toggle {
+    width: 42px;
+    height: 24px;
+  }
+
+  .hello-toggle span {
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .creative-options {
+    top: calc(100% + 0.4rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    width: min(86vw, 290px);
+    padding: 0.38rem;
+  }
+
+  .creative-option {
+    min-height: 32px;
+    padding-inline: 0.58rem;
+    font-size: 0.69rem;
+  }
+
+  .character-line {
+    top: calc(100% + 5rem);
+    width: min(82vw, 270px);
+    max-width: min(82vw, 270px);
+    padding: 0.62rem 0.72rem;
+    font-size: 0.82rem;
+  }
+
+  .hello-doodle-lines {
+    top: 30%;
+    left: 5%;
+  }
+
+  .hello-doodle-sun {
+    top: 61%;
+    left: 8%;
+  }
+
+  .hello-doodle-flower {
+    top: 14%;
+    left: 8%;
+  }
+
+  .hello-doodle-heart {
+    top: 40%;
+    left: 12%;
+  }
+
+  .hello-doodle-smile {
+    top: 18%;
+    left: 68%;
+  }
+
+  .hello-doodle-under-heart {
+    top: 48%;
+    left: 17%;
+  }
+
+  .hello-doodle-under-flower {
+    top: 63%;
+    left: 73%;
+  }
+
+  .hello-doodle-under-lines {
+    top: 76%;
+    left: 35%;
+  }
+
+  .about-doodle {
+    opacity: 0.62;
+  }
+
+  .about-doodle-sun {
+    top: 5%;
+    left: 4%;
+  }
+
+  .about-doodle-heart {
+    top: 18%;
+    right: 4%;
+  }
+
+  .about-doodle-flower {
+    right: 6%;
+    bottom: 4%;
+  }
+
+  .about-arrows {
+    gap: 12px;
+  }
+
+  .about-arrows img {
+    height: 34px;
+  }
+
+  .about-figma-grid {
     margin-top: 30px;
-    font-size: 22px;
   }
 
-  .figma-tags {
-    margin-top: 30px;
-    font-size: 19px;
+  .about-illustration {
+    gap: 8px;
   }
 
-  .figma-character {
-    top: 330px;
-    left: 50%;
-    width: 500px;
-    max-width: 112vw;
-    transform: translateX(-44%);
+  .about-hello {
+    min-width: 76px;
   }
 
-  .figma-bubble {
-    top: 390px;
-    right: 12px;
-    width: 190px;
+  .about-illustration > img:last-child {
+    min-width: 230px;
+    width: min(68vw, 300px);
   }
 
-  .figma-bubble p {
-    font-size: 13px;
+  .about-title-row {
+    gap: 10px;
   }
 
-  .figma-dot {
-    border-width: 2px;
+  .about-title-row h2 {
+    font-size: clamp(44px, 13vw, 62px);
   }
 
-  .figma-dot-1 {
-    top: 532px;
-    right: 154px;
+  .about-question {
+    height: 58px;
   }
 
-  .figma-dot-2 {
-    top: 560px;
-    right: 180px;
-  }
-
-  .figma-dot-3 {
-    top: 588px;
-    right: 206px;
+  .about-text {
+    padding-inline: 0;
+    font-size: 17px;
+    line-height: 1.35;
   }
 
   .section-wrap {

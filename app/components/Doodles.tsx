@@ -19,11 +19,3 @@ export function ArrowDoodle({ className = "" }: { className?: string }) {
     </svg>
   );
 }
-
-export function SparkleIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M16 3c2 8 5 11 13 13-8 2-11 5-13 13-2-8-5-11-13-13 8-2 11-5 13-13Z" fill="currentColor" />
-    </svg>
-  );
-}

@@ -16,7 +16,7 @@ type Trail = {
 export function OrbitSkills() {
   const [selected, setSelected] = useState<Skill | null>(null);
   const [trail, setTrail] = useState<Trail | null>(null);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(true);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const lastButtonRef = useRef<HTMLButtonElement | null>(null);
   const orbitRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +26,7 @@ export function OrbitSkills() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && selected) {
         setSelected(null);
-        setPaused(false);
+        setPaused(true);
         lastButtonRef.current?.focus();
       }
     };
@@ -58,7 +58,7 @@ export function OrbitSkills() {
 
   const closePanel = () => {
     setSelected(null);
-    setPaused(false);
+    setPaused(true);
     lastButtonRef.current?.focus();
   };
 
@@ -96,8 +96,8 @@ export function OrbitSkills() {
         <div
           ref={orbitRef}
           className={`orbit-stage ${paused || selected ? "is-paused" : ""}`}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => !selected && setPaused(false)}
+          onMouseEnter={() => setPaused(false)}
+          onMouseLeave={() => !selected && setPaused(true)}
         >
           <div className="orbit-ring orbit-ring-outer" />
           <div className="orbit-ring orbit-ring-inner" />

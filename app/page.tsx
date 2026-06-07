@@ -1,6 +1,7 @@
 import { About } from "./components/About";
 import { Capabilities } from "./components/Capabilities";
 import { Contact } from "./components/Contact";
+import { DecorativeFloaters } from "./components/DecorativeFloaters";
 import { Experience } from "./components/Experience";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
@@ -12,9 +13,10 @@ import { Services } from "./components/Services";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f8f3ea] text-[#2f261f]">
+    <div className="site-shell relative min-h-screen text-[#2f261f]">
+      <DecorativeFloaters />
       <Navigation />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
         <OrbitSkills />

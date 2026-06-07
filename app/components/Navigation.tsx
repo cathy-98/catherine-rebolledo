@@ -4,12 +4,9 @@ import { useState } from "react";
 
 const navItems = [
   ["Quién soy", "#quien-soy"],
-  ["Habilidades", "#habilidades"],
+  ["Skills", "#habilidades"],
   ["Proyectos", "#proyectos"],
-  ["Experiencia", "#experiencia"],
   ["Servicios", "#servicios"],
-  ["Lab", "#lab"],
-  ["Contacto", "#contacto"],
 ];
 
 export function Navigation() {
@@ -18,13 +15,13 @@ export function Navigation() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#2f261f]/10 bg-[#f8f3ea]/85 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8" aria-label="Navegacion principal">
-        <a href="#inicio" className="handwritten text-2xl font-semibold text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45]">
-          Cath.
+    <header className="pointer-events-none fixed left-0 right-0 top-5 z-50 px-4">
+      <nav className="floating-nav pointer-events-auto mx-auto flex items-center justify-between" aria-label="Navegacion principal">
+        <a href="#inicio" className="floating-brand handwritten focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
+          Cath
         </a>
         <button
-          className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#2f261f]/20 bg-white px-4 text-sm font-semibold text-[#2f261f] shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45] lg:hidden"
+          className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-[#7640b8]/25 bg-white/65 px-4 text-sm font-semibold text-[#2f261f] shadow-sm backdrop-blur-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db] lg:hidden"
           type="button"
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -33,27 +30,27 @@ export function Navigation() {
         >
           {open ? "Cerrar" : "Menu"}
         </button>
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {navItems.map(([label, href]) => (
-            <a key={href} href={href} className="text-sm font-medium text-[#5e554f] transition hover:text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45]">
+            <a key={href} href={href} className="shrink-0 whitespace-nowrap text-base font-medium text-[#2f261f]/80 transition hover:text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
               {label}
             </a>
           ))}
-          <a href="#contacto" className="rounded-full bg-[#d9c2ff] px-5 py-2.5 text-sm font-bold text-[#2f261f] shadow-[0_8px_20px_rgba(68,44,99,0.16)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45]">
-            Conversemos
+          <a href="#contacto" className="shrink-0 whitespace-nowrap rounded-lg bg-[#8d35db] px-4 py-3 text-base font-semibold text-white shadow-[0_8px_18px_rgba(103,51,166,0.22)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
+            Contacto
           </a>
         </div>
       </nav>
       {open ? (
-        <div id="mobile-menu" className="border-t border-[#2f261f]/10 bg-[#f8f3ea] px-5 py-4 lg:hidden">
-          <div className="grid gap-2">
+        <div id="mobile-menu" className="pointer-events-auto mx-auto mt-3 max-w-sm rounded-[22px] border border-[#7640b8]/25 bg-white/80 p-3 shadow-[0_18px_60px_rgba(65,38,94,0.15)] backdrop-blur-xl lg:hidden">
+          <div className="grid gap-1">
             {navItems.map(([label, href]) => (
-              <a key={href} href={href} onClick={closeMenu} className="min-h-11 rounded-full px-4 py-3 text-sm font-semibold text-[#2f261f] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#eb5d45]">
+              <a key={href} href={href} onClick={closeMenu} className="min-h-11 rounded-2xl px-4 py-3 text-sm font-semibold text-[#2f261f] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8d35db]">
                 {label}
               </a>
             ))}
-            <a href="#contacto" onClick={closeMenu} className="mt-2 min-h-11 rounded-full bg-[#d9c2ff] px-4 py-3 text-center text-sm font-bold text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#eb5d45]">
-              Conversemos
+            <a href="#contacto" onClick={closeMenu} className="mt-2 min-h-11 rounded-2xl bg-[#8d35db] px-4 py-3 text-center text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8d35db]">
+              Contacto
             </a>
           </div>
         </div>
