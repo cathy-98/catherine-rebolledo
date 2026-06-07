@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f3ea;
+  --foreground: #2f261f;
 }
 
 @theme inline {
@@ -12,15 +12,724 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans, Arial), Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 224, 138, 0.28), transparent 18rem),
+    radial-gradient(circle at 78% 20%, rgba(191, 229, 255, 0.24), transparent 17rem),
+    linear-gradient(115deg, rgba(47, 38, 31, 0.035) 0 1px, transparent 1px 100%),
+    linear-gradient(#f8f3ea, #f2ece2);
+  background-size: auto, auto, 18px 18px, auto;
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.33;
+  background-image:
+    radial-gradient(rgba(47, 38, 31, 0.18) 0.6px, transparent 0.7px),
+    radial-gradient(rgba(255, 255, 255, 0.45) 0.7px, transparent 0.8px);
+  background-position: 0 0, 9px 12px;
+  background-size: 24px 24px, 28px 28px;
+  mix-blend-mode: multiply;
+}
+
+::selection {
+  background: #ffe08a;
+  color: #2f261f;
+}
+
+.handwritten {
+  font-family: var(--font-geist-mono, "Courier New"), monospace;
+  letter-spacing: 0;
+}
+
+.section-wrap {
+  position: relative;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 5rem 1.25rem;
+}
+
+.paper-section {
+  background:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at 48% 10%, rgba(217, 194, 255, 0.2), transparent 20rem);
+}
+
+.figma-hero {
+  position: relative;
+  width: min(100%, 1733px);
+  min-height: clamp(560px, 58.9vw, 1020px);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.76);
+  border: clamp(1px, 0.12vw, 2px) solid #800020;
+  border-radius: clamp(16px, 1.16vw, 20px);
+}
+
+.figma-search {
+  position: absolute;
+  top: 4.6%;
+  left: 8.65%;
+  right: 8.65%;
+  z-index: 3;
+  display: flex;
+  height: clamp(52px, 5.1vw, 89px);
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline: clamp(24px, 2.6vw, 45px);
+  background: rgba(255, 255, 255, 0.18);
+  border: clamp(2px, 0.24vw, 4px) solid #800020;
+  border-radius: clamp(22px, 1.7vw, 30px);
+  box-shadow: 0 0 clamp(28px, 5.65vw, 98px) rgba(128, 0, 32, 0.9);
+}
+
+.figma-search img {
+  width: clamp(34px, 3.2vw, 56px);
+  height: auto;
+}
+
+.figma-hero-copy {
+  position: absolute;
+  top: 22.7%;
+  left: 6.1%;
+  z-index: 2;
+  color: #000;
+}
+
+.figma-hero-copy h1 {
+  font-size: clamp(52px, 4.85vw, 84px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.figma-hero-copy h1 span {
+  display: block;
+  font-weight: 800;
+  color: #800020;
+}
+
+.figma-role {
+  width: min(31vw, 396px);
+  margin-top: clamp(48px, 5.9vw, 102px);
+  font-size: clamp(24px, 1.96vw, 34px);
+  font-style: italic;
+  line-height: 1.24;
+}
+
+.figma-tags {
+  width: min(30vw, 396px);
+  margin-top: clamp(50px, 5.5vw, 95px);
+  font-size: clamp(22px, 1.62vw, 28px);
+  line-height: 1.22;
+}
+
+.figma-character {
+  position: absolute;
+  top: 12.9%;
+  left: 24.6%;
+  z-index: 1;
+  width: min(53.4vw, 926px);
+  height: auto;
+}
+
+.figma-bubble {
+  position: absolute;
+  top: 15.4%;
+  right: 3.4%;
+  z-index: 2;
+  display: grid;
+  width: min(25.3vw, 438px);
+  aspect-ratio: 438 / 440;
+  place-items: center;
+  padding: 7% 10% 14% 15%;
+  color: #000;
+  background-image: url("/figma/speech-bubble.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.figma-bubble p {
+  width: 82%;
+  font-size: clamp(19px, 1.62vw, 28px);
+  line-height: 1.34;
+}
+
+.figma-bubble strong {
+  color: #800020;
+  font-weight: 800;
+}
+
+.figma-dot {
+  position: absolute;
+  z-index: 2;
+  width: clamp(13px, 1.45vw, 25px);
+  aspect-ratio: 1;
+  border: 3px solid #000;
+  border-radius: 9999px;
+}
+
+.figma-dot-1 {
+  top: 40%;
+  right: 22.5%;
+}
+
+.figma-dot-2 {
+  top: 43.6%;
+  right: 25.1%;
+}
+
+.figma-dot-3 {
+  top: 46.4%;
+  right: 27.7%;
+}
+
+.floating-mark {
+  position: absolute;
+  font-family: var(--font-geist-mono, "Courier New"), monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  animation: soft-float 6s ease-in-out infinite;
+}
+
+.animate-soft-float {
+  animation: soft-float 5s ease-in-out infinite;
+}
+
+.orbit-stage {
+  position: relative;
+  width: min(100%, 720px);
+  min-height: 680px;
+  margin-inline: auto;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  border: 2px dashed rgba(118, 80, 165, 0.25);
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-ring-inner {
+  width: 360px;
+  height: 220px;
+}
+
+.orbit-ring-outer {
+  width: 570px;
+  height: 380px;
+}
+
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  display: grid;
+  width: 190px;
+  min-height: 110px;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  background: radial-gradient(circle, #fff 0%, #f2e7ff 70%);
+  border: 1px solid rgba(118, 80, 165, 0.22);
+  border-radius: 9999px;
+  box-shadow: 0 18px 45px rgba(118, 80, 165, 0.18);
+  transform: translate(-50%, -50%);
+}
+
+.orbit-center span {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #eb5d45;
+}
+
+.orbit-center small {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #7650a5;
+}
+
+.orbit-layer {
+  position: absolute;
+  inset: 0;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: center;
+}
+
+.orbit-stage:hover .orbit-card,
+.orbit-stage.is-paused .orbit-card {
+  animation-play-state: paused;
+}
+
+.orbit-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  max-width: 168px;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #2f261f;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(47, 38, 31, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 12px 24px rgba(54, 43, 35, 0.1);
+  transform:
+    rotate(var(--angle))
+    translateX(var(--radius))
+    rotate(calc(var(--angle) * -1));
+  transition: box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.orbit-card-inner {
+  --radius: 180px;
+  animation: orbit-card-spin 44s linear infinite;
+}
+
+.orbit-card-outer {
+  --radius: 285px;
+  animation: orbit-card-spin-reverse 64s linear infinite;
+}
+
+.orbit-card:hover,
+.orbit-card:focus-visible,
+.orbit-card.is-selected {
+  border-color: color-mix(in srgb, var(--accent) 70%, #2f261f 10%);
+  background: color-mix(in srgb, var(--accent) 30%, white 70%);
+  box-shadow: 0 16px 34px rgba(54, 43, 35, 0.14);
+  outline: none;
+}
+
+.orbit-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  border-radius: 9999px;
+  background: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 1000;
+}
+
+.skill-panel {
+  min-height: 430px;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(47, 38, 31, 0.1);
+  border-radius: 2rem;
+  box-shadow: 0 18px 45px rgba(54, 43, 35, 0.08);
+  opacity: 0.7;
+}
+
+.skill-panel:not(.skill-panel-open)::before {
+  display: grid;
+  min-height: 390px;
+  place-items: center;
+  color: #8b7b72;
+  text-align: center;
+  content: "Selecciona una habilidad para ver el detalle.";
+}
+
+.skill-panel-open {
+  opacity: 1;
+}
+
+.shooting-star {
+  position: fixed;
+  top: var(--sy);
+  left: var(--sx);
+  z-index: 80;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  background: #ffe08a;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 4px rgba(255, 224, 138, 0.25), 0 0 22px rgba(235, 93, 69, 0.55);
+  animation: shooting-star 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.shooting-star::after {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  width: 58px;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, #ffe08a);
+  transform: rotate(14deg);
+  transform-origin: right center;
+}
+
+.project-card {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(47, 38, 31, 0.1);
+  border-radius: 2rem;
+  box-shadow: 0 18px 45px rgba(54, 43, 35, 0.08);
+}
+
+.project-visual {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 72% 20%, color-mix(in srgb, var(--accent) 55%, white 45%), transparent 12rem),
+    #1e1d1b;
+  border-radius: 1.5rem;
+}
+
+.mock-browser {
+  position: absolute;
+  inset: 12% 10%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 1.3rem;
+  transform: rotate(-4deg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.mock-dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.mock-dots span {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 9999px;
+  background: #eb5d45;
+}
+
+.mock-dots span:nth-child(2) {
+  background: #ffe08a;
+}
+
+.mock-dots span:nth-child(3) {
+  background: #8db56c;
+}
+
+.mock-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.mock-grid span {
+  min-height: 72px;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--accent) 62%, white 38%);
+}
+
+.mock-grid span:first-child {
+  grid-row: span 2;
+}
+
+.service-card {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(47, 38, 31, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 14px 35px rgba(54, 43, 35, 0.07);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(54, 43, 35, 0.11);
+}
+
+@keyframes soft-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(3deg);
+  }
+}
+
+@keyframes orbit-card-spin {
+  from {
+    transform:
+      rotate(var(--angle))
+      translateX(var(--radius))
+      rotate(calc(var(--angle) * -1));
+  }
+  to {
+    transform:
+      rotate(calc(var(--angle) + 360deg))
+      translateX(var(--radius))
+      rotate(calc((var(--angle) + 360deg) * -1));
+  }
+}
+
+@keyframes orbit-card-spin-reverse {
+  from {
+    transform:
+      rotate(var(--angle))
+      translateX(var(--radius))
+      rotate(calc(var(--angle) * -1));
+  }
+  to {
+    transform:
+      rotate(calc(var(--angle) - 360deg))
+      translateX(var(--radius))
+      rotate(calc((var(--angle) - 360deg) * -1));
+  }
+}
+
+@keyframes shooting-star {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--tx), var(--ty), 0) scale(0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-card {
+    grid-template-columns: 1.1fr 0.9fr;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .figma-hero {
+    min-height: 760px;
+  }
+
+  .figma-search {
+    top: 28px;
+    left: 24px;
+    right: 24px;
+  }
+
+  .figma-hero-copy {
+    top: 122px;
+    left: 32px;
+  }
+
+  .figma-hero-copy h1 {
+    font-size: clamp(46px, 10vw, 70px);
+  }
+
+  .figma-role {
+    width: 260px;
+    margin-top: 34px;
+    font-size: 25px;
+  }
+
+  .figma-tags {
+    width: 230px;
+    margin-top: 36px;
+    font-size: 22px;
+  }
+
+  .figma-character {
+    top: 238px;
+    left: 35%;
+    width: 560px;
+    max-width: 75vw;
+  }
+
+  .figma-bubble {
+    top: 135px;
+    right: 20px;
+    width: 245px;
+  }
+
+  .figma-bubble p {
+    font-size: 16px;
+  }
+
+  .figma-dot-1 {
+    top: 330px;
+    right: 182px;
+  }
+
+  .figma-dot-2 {
+    top: 365px;
+    right: 210px;
+  }
+
+  .figma-dot-3 {
+    top: 398px;
+    right: 238px;
+  }
+
+  .orbit-stage {
+    display: grid;
+    min-height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .orbit-ring,
+  .orbit-center,
+  .orbit-layer {
+    display: contents;
+  }
+
+  .orbit-card {
+    position: static;
+    max-width: none;
+    justify-content: flex-start;
+    transform: none;
+  }
+
+  .skill-panel {
+    position: fixed;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    z-index: 70;
+    max-height: 82vh;
+    min-height: auto;
+    overflow: auto;
+    border-radius: 1.5rem;
+    transform: translateY(calc(100% + 2rem));
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .skill-panel:not(.skill-panel-open) {
+    pointer-events: none;
+  }
+
+  .skill-panel-open {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .figma-hero {
+    min-height: 760px;
+  }
+
+  .figma-search {
+    height: 54px;
+    border-width: 2px;
+    box-shadow: 0 0 32px rgba(128, 0, 32, 0.5);
+  }
+
+  .figma-hero-copy {
+    top: 108px;
+    left: 24px;
+  }
+
+  .figma-hero-copy h1 {
+    font-size: clamp(42px, 12vw, 58px);
+  }
+
+  .figma-role {
+    width: 220px;
+    margin-top: 30px;
+    font-size: 22px;
+  }
+
+  .figma-tags {
+    margin-top: 30px;
+    font-size: 19px;
+  }
+
+  .figma-character {
+    top: 330px;
+    left: 50%;
+    width: 500px;
+    max-width: 112vw;
+    transform: translateX(-44%);
+  }
+
+  .figma-bubble {
+    top: 390px;
+    right: 12px;
+    width: 190px;
+  }
+
+  .figma-bubble p {
+    font-size: 13px;
+  }
+
+  .figma-dot {
+    border-width: 2px;
+  }
+
+  .figma-dot-1 {
+    top: 532px;
+    right: 154px;
+  }
+
+  .figma-dot-2 {
+    top: 560px;
+    right: 180px;
+  }
+
+  .figma-dot-3 {
+    top: 588px;
+    right: 206px;
+  }
+
+  .section-wrap {
+    padding-block: 4rem;
+  }
+
+  .orbit-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .shooting-star {
+    display: none;
+  }
 }
