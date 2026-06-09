@@ -13,8 +13,8 @@ export function Lab() {
       <div className="rounded-[2rem] border border-[#2f261f]/10 bg-[#2f261f] p-6 text-white shadow-2xl sm:p-8 lg:p-10">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="handwritten text-3xl text-[#ffe08a]">Lab</p>
-            <h2 className="mt-2 text-4xl font-black tracking-normal sm:text-5xl">Diseño, tecnología e IA en pequeño formato.</h2>
+            <p className="section-kicker section-kicker-light">Lab</p>
+            <h2 className="section-title section-title-light">Diseño, tecnología e IA en pequeño formato.</h2>
             <p className="mt-5 text-base leading-8 text-white/75">
               Un espacio donde combino diseño, tecnología e inteligencia artificial para crear pequeñas herramientas, recursos y experimentos.
             </p>

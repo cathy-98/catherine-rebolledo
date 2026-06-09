@@ -1,36 +1,130 @@
-import { PortraitDoodle } from "./Doodles";
+"use client";
+
+import { useRef, useState } from "react";
+import type { DragEvent } from "react";
+
+const projectTypes = [
+  "UX/UI",
+  "Diseño web",
+  "Producto digital",
+  "Automatización / Lab",
+  "Aún no lo sé",
+];
 
 export function Contact() {
+  const [fileName, setFileName] = useState("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const updateFileName = (files: FileList | null) => {
+    setFileName(files?.[0]?.name ?? "");
+  };
+
+  const handleDrop = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    if (fileInputRef.current && event.dataTransfer.files.length > 0) {
+      fileInputRef.current.files = event.dataTransfer.files;
+      updateFileName(event.dataTransfer.files);
+    }
+  };
+
   return (
-    <section id="contacto" className="section-wrap pb-16">
-      <div className="grid items-center gap-8 rounded-[2rem] border border-[#2f261f]/10 bg-white/80 p-6 shadow-[0_18px_45px_rgba(54,43,35,0.08)] sm:p-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <p className="handwritten text-3xl text-[#7650a5]">conversemos</p>
-          <h2 className="mt-2 text-4xl font-black tracking-normal text-[#2f261f] sm:text-5xl">
-            ¿Tienes una idea y no sabes cómo ordenarla?
+    <section id="contacto" className="contact-section" aria-labelledby="contact-title">
+      <form
+        className="contact-card"
+        action="mailto:Cathyrbopas@gmail.com"
+        method="post"
+        encType="text/plain"
+        data-automation-ready="true"
+        data-lab-flow="brief-intake"
+      >
+        <input type="hidden" name="origen" value="portfolio-contact" />
+
+        <div className="contact-intro">
+          <span className="contact-spark" aria-hidden="true">✦</span>
+          <p className="section-kicker">conversemos</p>
+          <h2 id="contact-title">
+            ¿Tienes una <span>idea</span> y no sabes cómo ordenarla?
           </h2>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5e554f]">
-            Podemos convertirla en una experiencia clara, visual y funcional.
+          <p>
+            Cuéntame qué quieres diseñar, ordenar o automatizar. Yo te ayudo a
+            bajarlo a una experiencia clara, visual y funcional.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="mailto:Cathyrbopas@gmail.com" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#eb5d45] px-6 text-sm font-black text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2f261f]">
-              Hablemos
+          <div className="contact-cta-actions" aria-label="Acciones de contacto">
+            <a className="contact-pill contact-pill-primary" href="mailto:Cathyrbopas@gmail.com">
+              Hablemos <span aria-hidden="true">↗</span>
             </a>
-            <a href="https://www.linkedin.com/in/catherine-rebolledo-pastene/" target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#2f261f]/20 bg-white px-6 text-sm font-black text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45]">
-              LinkedIn
+            <a
+              className="contact-pill contact-pill-secondary"
+              href="https://www.linkedin.com/in/catherine-rebolledo-pastene/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ver LinkedIn <span aria-hidden="true">in</span>
             </a>
           </div>
-          <div className="mt-8 grid gap-3 text-sm font-semibold text-[#5e554f] sm:grid-cols-3">
-            <span>Correo: Cathyrbopas@gmail.com</span>
-            <span>Santiago, Chile</span>
-            <span>Disponible para proyectos</span>
-          </div>
+          <span className="contact-chat-doodle" aria-hidden="true">
+            <span>···</span>
+          </span>
         </div>
-        <div className="mx-auto text-[#2f261f]">
-          <PortraitDoodle className="h-64 w-64" />
-          <p className="handwritten text-center text-2xl text-[#eb5d45]">de idea a interfaz</p>
+
+        <div className="contact-fields">
+          <label>
+            Nombre
+            <input name="nombre" type="text" placeholder="Tu nombre" autoComplete="name" />
+          </label>
+          <label>
+            Correo
+            <input
+              name="correo"
+              type="email"
+              placeholder="tu@email.com"
+              autoComplete="email"
+            />
+          </label>
+          <label>
+            Tipo de proyecto
+            <select name="tipo_de_proyecto" defaultValue="">
+              <option value="" disabled>
+                Selecciona una opción
+              </option>
+              {projectTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="contact-message-field">
+            Mensaje
+            <textarea
+              name="mensaje"
+              rows={5}
+              placeholder="¿Qué quieres ordenar, diseñar o automatizar?"
+            />
+          </label>
+          <label
+            className="contact-file-drop"
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={handleDrop}
+          >
+            <input
+              ref={fileInputRef}
+              name="archivo_referencia"
+              type="file"
+              onChange={(event) => updateFileName(event.currentTarget.files)}
+            />
+            <span aria-hidden="true">↥</span>
+            <strong>Adjuntar archivo o referencia</strong>
+            <small>
+              {fileName || "PDF, imagen, brief o captura. También puedes arrastrarlo aquí."}
+            </small>
+          </label>
         </div>
-      </div>
+
+        <button type="submit" className="contact-submit">
+          Enviar idea <span aria-hidden="true">♡</span>
+        </button>
+      </form>
     </section>
   );
 }

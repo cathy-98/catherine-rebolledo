@@ -21,4 +21,6 @@ export type Project = {
   tags: string[];
   accent: string;
   note: string;
+  outcome: string;
+  fit: string;
 };

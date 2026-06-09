@@ -1,5 +1,4 @@
 import { About } from "./components/About";
-import { Capabilities } from "./components/Capabilities";
 import { Contact } from "./components/Contact";
 import { DecorativeFloaters } from "./components/DecorativeFloaters";
 import { Experience } from "./components/Experience";
@@ -20,7 +19,6 @@ export default function Home() {
         <Hero />
         <About />
         <OrbitSkills />
-        <Capabilities />
         <Projects />
         <Experience />
         <Services />

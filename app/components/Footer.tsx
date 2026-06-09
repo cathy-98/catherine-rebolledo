@@ -1,18 +1,67 @@
+const footerLinks = [
+  { label: "Quién soy", href: "#quien-soy" },
+  { label: "Habilidades", href: "#habilidades" },
+  { label: "Proyectos", href: "#proyectos" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Lab", href: "#lab" },
+  { label: "Contacto", href: "#contacto" },
+];
+
 export function Footer() {
   return (
-    <footer className="border-t border-[#2f261f]/10 px-5 py-8 lg:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-[#5e554f] md:flex-row md:items-center md:justify-between">
+    <footer className="site-footer">
+      <div className="site-footer-grid">
+        <div className="site-footer-brand">
+          <a href="#inicio" className="footer-logo" aria-label="Volver al inicio">
+            Cath<span>.</span>
+          </a>
+          <p>
+            Diseño experiencias digitales claras, funcionales y visualmente
+            cuidadas.
+          </p>
+        </div>
+
+        <nav aria-label="Navegación secundaria">
+          <h2>Navegación</h2>
+          <ul>
+            {footerLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div>
-          <p className="font-black text-[#2f261f]">Catherine Rebolledo</p>
-          <p>UX/UI & Digital Product Designer · Santiago, Chile</p>
+          <h2>Contacto</h2>
+          <ul className="footer-contact-list">
+            <li>
+              <span aria-hidden="true">✉</span>
+              <a href="mailto:Cathyrbopas@gmail.com">Cathyrbopas@gmail.com</a>
+            </li>
+            <li>
+              <span aria-hidden="true">⌂</span>
+              <span>Santiago, Chile</span>
+            </li>
+            <li>
+              <span aria-hidden="true">in</span>
+              <a
+                href="https://www.linkedin.com/in/catherine-rebolledo-pastene/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                /catherine-rebolledo-pastene
+              </a>
+            </li>
+          </ul>
         </div>
-        <div className="flex flex-wrap gap-4">
-          <a href="mailto:Cathyrbopas@gmail.com" className="font-semibold hover:text-[#2f261f]">Email</a>
-          <a href="https://www.linkedin.com/in/catherine-rebolledo-pastene/" target="_blank" rel="noreferrer" className="font-semibold hover:text-[#2f261f]">LinkedIn</a>
-          <span>2026</span>
-          <span className="handwritten text-[#eb5d45]">✦</span>
-        </div>
+
+        <p className="site-footer-note">Hecho con ♡ y mucho café.</p>
       </div>
+
+      <p className="site-footer-copy">
+        © 2024 Catherine Rebolledo. Todos los derechos reservados.
+      </p>
     </footer>
   );
 }

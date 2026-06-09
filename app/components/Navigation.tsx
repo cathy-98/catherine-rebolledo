@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 
+const cvPath = "/cv/cv_crp_2026.pdf";
+
 const navItems = [
   ["Quién soy", "#quien-soy"],
-  ["Skills", "#habilidades"],
+  ["Habilidades", "#habilidades"],
   ["Proyectos", "#proyectos"],
   ["Servicios", "#servicios"],
 ];
@@ -30,12 +32,15 @@ export function Navigation() {
         >
           {open ? "Cerrar" : "Menu"}
         </button>
-        <div className="hidden items-center gap-7 lg:flex">
+        <div className="hidden items-center gap-5 lg:flex">
           {navItems.map(([label, href]) => (
             <a key={href} href={href} className="shrink-0 whitespace-nowrap text-base font-medium text-[#2f261f]/80 transition hover:text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
               {label}
             </a>
           ))}
+          <a href={cvPath} download className="nav-cv-link shrink-0 whitespace-nowrap text-base font-semibold text-[#724899] transition hover:text-[#2f261f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
+            CV
+          </a>
           <a href="#contacto" className="shrink-0 whitespace-nowrap rounded-lg bg-[#8d35db] px-4 py-3 text-base font-semibold text-white shadow-[0_8px_18px_rgba(103,51,166,0.22)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
             Contacto
           </a>
@@ -49,7 +54,10 @@ export function Navigation() {
                 {label}
               </a>
             ))}
-            <a href="#contacto" onClick={closeMenu} className="mt-2 min-h-11 rounded-2xl bg-[#8d35db] px-4 py-3 text-center text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8d35db]">
+            <a href={cvPath} download onClick={closeMenu} className="mt-2 min-h-11 rounded-2xl border border-[#7640b8]/35 px-4 py-3 text-center text-sm font-bold text-[#724899] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8d35db]">
+              Descargar CV
+            </a>
+            <a href="#contacto" onClick={closeMenu} className="min-h-11 rounded-2xl bg-[#8d35db] px-4 py-3 text-center text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8d35db]">
               Contacto
             </a>
           </div>

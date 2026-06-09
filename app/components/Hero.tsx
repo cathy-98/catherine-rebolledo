@@ -1,231 +1,61 @@
-"use client";
-
 import Image from "next/image";
-import { useRef, useState } from "react";
-
-const cvPath = "/cv/catherine-rebolledo-cv.pdf";
-
-const characterByMood: Record<string, string> = {
-  calma: "/figma/main-character.svg",
-  tongue: "/figma/personaje-sacando-lengua.svg",
-  sound: "/figma/personaje-haciendo-ruido.svg",
-  phrase: "/figma/personaje-lanzando-frase.svg",
-};
-
-const creativeStates = [
-  {
-    mood: "calma",
-    line: "",
-  },
-  {
-    mood: "tongue",
-    line: "",
-  },
-  {
-    mood: "sound",
-    line: "",
-  },
-  {
-    mood: "phrase",
-    line: "Menos ruido, más intención.",
-  },
-];
-
-const creativeOptions = [
-  { action: "tongue", label: "Sacar lengua" },
-  { action: "sound", label: "Hacer ruido" },
-  { action: "phrase", label: "Lanzar frase" },
-];
-
-const designStoicPhrases = [
-  "Diseña lo que puedes controlar; suelta lo que solo hace ruido.",
-  "Menos adorno, más intención.",
-  "La calma también es una decisión de interfaz.",
-  "Si no aporta claridad, no merece espacio.",
-  "Hazlo simple, pero no vacío.",
-  "Primero entiende; después embellece.",
-  "Una buena idea respira antes de brillar.",
-  "Que cada detalle tenga propósito, no ego.",
-];
 
 export function Hero() {
-  const [isCreative, setIsCreative] = useState(false);
-  const [creativeMood, setCreativeMood] = useState("calma");
-  const [creativeLine, setCreativeLine] = useState("");
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const resetTimerRef = useRef<number | null>(null);
-
-  const currentCreative = creativeStates.find((state) => state.mood === creativeMood) ?? creativeStates[0];
-  const characterSrc = characterByMood[currentCreative.mood] ?? characterByMood.calma;
-
-  const toggleCreativeMode = () => {
-    setIsCreative((value) => {
-      if (value) {
-        if (resetTimerRef.current) {
-          window.clearTimeout(resetTimerRef.current);
-          resetTimerRef.current = null;
-        }
-
-        setCreativeMood("calma");
-        setCreativeLine("");
-      }
-
-      return !value;
-    });
-  };
-
-  const speak = (text: string) => {
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "es-CL";
-      utterance.rate = 1.02;
-      utterance.pitch = 1.12;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  const playPop = () => {
-    const audioWindow = window as typeof window & {
-      webkitAudioContext?: typeof AudioContext;
-    };
-    const AudioContextClass = window.AudioContext ?? audioWindow.webkitAudioContext;
-
-    if (!AudioContextClass) {
-      speak("pop pop");
-      return;
-    }
-
-    const context = new AudioContextClass();
-    const oscillator = context.createOscillator();
-    const secondOscillator = context.createOscillator();
-    const gain = context.createGain();
-
-    void context.resume();
-
-    oscillator.type = "square";
-    oscillator.frequency.setValueAtTime(260, context.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(940, context.currentTime + 0.12);
-    secondOscillator.type = "triangle";
-    secondOscillator.frequency.setValueAtTime(520, context.currentTime);
-    secondOscillator.frequency.exponentialRampToValueAtTime(320, context.currentTime + 0.2);
-    gain.gain.setValueAtTime(0.0001, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.32, context.currentTime + 0.018);
-    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.34);
-
-    oscillator.connect(gain);
-    secondOscillator.connect(gain);
-    gain.connect(context.destination);
-    oscillator.start();
-    secondOscillator.start(context.currentTime + 0.05);
-    oscillator.stop(context.currentTime + 0.36);
-    secondOscillator.stop(context.currentTime + 0.36);
-  };
-
-  const runCreativeOption = (action: string) => {
-    if (resetTimerRef.current) {
-      window.clearTimeout(resetTimerRef.current);
-      resetTimerRef.current = null;
-    }
-
-    const nextCreative = creativeStates.find((state) => state.mood === action) ?? creativeStates[0];
-    const phrase = designStoicPhrases[phraseIndex];
-    const nextLine = action === "phrase" ? phrase : nextCreative.line;
-
-    setCreativeMood(nextCreative.mood);
-    setCreativeLine(nextLine);
-
-    if (action === "phrase") {
-      setPhraseIndex((index) => (index + 1) % designStoicPhrases.length);
-    }
-
-    if (action === "sound") {
-      playPop();
-    }
-
-    if (action === "phrase") {
-      speak(phrase);
-      return;
-    }
-
-    resetTimerRef.current = window.setTimeout(() => {
-      setCreativeMood("calma");
-      setCreativeLine("");
-      resetTimerRef.current = null;
-    }, 3200);
-  };
-
   return (
-    <section id="inicio" className={`hero-section ${isCreative ? "creative-on" : ""} mood-${currentCreative.mood}`}>
+    <section id="inicio" className="hero-section">
       <div className="figma-hello-hero mx-auto">
-        <Image className="hello-doodle hello-doodle-lines" src="/figma/hero-doodle-left-top.svg" alt="" width={84} height={57} priority />
-        <Image className="hello-doodle hello-doodle-sun" src="/figma/hero-sun.svg" alt="" width={81} height={87} priority />
-        <Image className="hello-doodle hello-doodle-flower" src="/figma/hero-flower.svg" alt="" width={52} height={44} priority />
-        <Image className="hello-doodle hello-doodle-heart" src="/figma/hero-heart.svg" alt="" width={63} height={52} priority />
-        <Image className="hello-doodle hello-doodle-smile" src="/figma/hero-smile.svg" alt="" width={80} height={76} priority />
-        <Image className="hello-doodle hello-doodle-under-heart" src="/figma/hero-heart.svg" alt="" width={63} height={52} priority />
-        <Image className="hello-doodle hello-doodle-under-flower" src="/figma/hero-flower.svg" alt="" width={52} height={44} priority />
-        <Image className="hello-doodle hello-doodle-under-lines" src="/figma/hero-doodle-left-top.svg" alt="" width={84} height={57} priority />
-
-        <button
-          className="hello-creative-mode"
-          type="button"
-          aria-pressed={isCreative}
-          aria-expanded={isCreative}
-          aria-controls="creative-options"
-          aria-label={`Modo creativo. ${isCreative ? "Opciones abiertas" : "Opciones cerradas"}`}
-          onClick={toggleCreativeMode}
-        >
-          <Image src="/figma/stars-icon.svg" alt="" width={24} height={24} />
-          <span>Modo creativo</span>
-          <span className={`hello-toggle ${isCreative ? "is-on" : ""}`} aria-hidden="true">
-            <span />
-          </span>
-        </button>
-
-        <div className="hello-character-wrap">
-          <Image
-            className="hello-character"
-            src={characterSrc}
-            alt="Ilustracion lineal de Catherine Rebolledo"
-            width={384}
-            height={404}
-            priority
-          />
-          <span className="character-pop" aria-hidden="true">pop</span>
-          <span className="character-spark character-spark-1" aria-hidden="true">✦</span>
-          <span className="character-spark character-spark-2" aria-hidden="true">♡</span>
-          <span className="character-line" aria-live="polite">{creativeLine}</span>
-          {isCreative ? (
-            <div id="creative-options" className="creative-options" role="menu" aria-label="Opciones creativas del personaje">
-              {creativeOptions.map((option) => (
-                <button
-                  key={option.action}
-                  className="creative-option"
-                  type="button"
-                  role="menuitem"
-                  onClick={() => runCreativeOption(option.action)}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          ) : null}
+        <div className="hero-separated-doodles" aria-hidden="true">
+          <Image className="hero-piece hero-piece-idea" src="/figma/hero-layer-idea.svg" alt="" width={268} height={123} priority />
+          <Image className="hero-piece hero-piece-sun" src="/figma/hero-layer-sol.svg" alt="" width={239} height={217} priority />
+          <Image className="hero-piece hero-piece-cloud" src="/figma/hero-layer-curves.svg" alt="" width={664} height={491} priority />
+          <Image className="hero-piece hero-piece-pointer" src="/figma/hero-layer-curve.svg" alt="" width={248} height={243} priority />
+          <Image className="hero-piece hero-piece-window" src="/figma/hero-layer-iheuei.svg" alt="" width={420} height={360} priority />
+          <Image className="hero-piece hero-piece-heart" src="/figma/hero-layer-vdbvj.svg" alt="" width={390} height={362} priority />
+          <Image className="hero-piece hero-piece-planet" src="/figma/hero-layer-uhbisb.svg" alt="" width={632} height={432} priority />
+          <Image className="hero-piece hero-piece-ux" src="/figma/hero-layer-abubage.svg" alt="" width={268} height={123} priority />
+          <Image className="hero-piece hero-piece-proto" src="/figma/hero-layer-fihugeuwhgrui.svg" alt="" width={320} height={150} priority />
+          <Image className="hero-piece hero-piece-visual" src="/figma/hero-layer-nsvksnkss.svg" alt="" width={320} height={150} priority />
+          <Image className="hero-piece hero-piece-star" src="/figma/hero-layer-kdhdvd.svg" alt="" width={220} height={220} priority />
+          <Image className="hero-piece hero-piece-scribble" src="/figma/hero-layer-fhhfs.svg" alt="" width={220} height={180} priority />
+          <Image className="hero-piece hero-piece-mini" src="/figma/hero-layer-hiauggs.svg" alt="" width={220} height={180} priority />
         </div>
 
-        <div className="hello-content">
-          <div className="hello-title-row">
-            <Image className="hello-arrow" src="/figma/hero-arrow.svg" alt="" width={34} height={65} />
-            <h1>
-              Hola <span>TU</span>
-            </h1>
-          </div>
-          <p className="hello-subtitle">
-            Diseño cosas que <strong>funcionan</strong> y se sienten <strong>bien</strong>.
+        <div className="hero-scene-core">
+          <Image
+            className="hero-scene-image"
+            src="/figma/hero-girl.svg"
+            alt="Ilustracion central de Catherine"
+            width={814}
+            height={1031}
+            priority
+          />
+        </div>
+
+        <div className="hero-top-copy">
+          <h1>
+            Hola, soy <span>Cath</span>
+          </h1>
+          <p>
+            Diseño cosas que <strong>funcionan</strong> y se <strong>sienten bien</strong>.
           </p>
-          <a className="hello-cv-button" href={cvPath} download aria-label="Descargar CV">
-            <Image src="/figma/download-icon.svg" alt="" width={24} height={24} />
-            <span>Descargar CV</span>
+        </div>
+
+        <p className="hero-left-note">
+          Marcas, productos y
+          <br />
+          comunicación digital
+          <br />
+          con intención visual.
+        </p>
+
+        <div className="hero-cta-pill">
+          <a className="hero-primary-link" href="#proyectos">
+            <span>Ver proyectos</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a className="hero-secondary-link" href="#contacto">
+            <span>Conversemos</span>
+            <span aria-hidden="true">♡</span>
           </a>
         </div>
       </div>

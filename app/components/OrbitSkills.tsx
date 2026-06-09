@@ -13,10 +13,41 @@ type Trail = {
   key: number;
 };
 
+const featuredSkillIds = [
+  "figma",
+  "prototipado",
+  "arquitectura",
+  "visual",
+  "frontend",
+  "framer",
+  "ia",
+  "investigacion",
+  "sistemas",
+];
+
+const shortLabels: Record<string, string> = {
+  arquitectura: "Arquitectura",
+  investigacion: "Investigación",
+  sistemas: "Sistemas de diseño",
+  visual: "Diseño visual",
+};
+
+const orbitSymbols: Record<string, string> = {
+  arquitectura: "⌘",
+  figma: "✣",
+  framer: "✎",
+  frontend: "</>",
+  ia: "✧",
+  investigacion: "⌕",
+  prototipado: "▱",
+  sistemas: "❖",
+  visual: "◉",
+};
+
 export function OrbitSkills() {
   const [selected, setSelected] = useState<Skill | null>(null);
   const [trail, setTrail] = useState<Trail | null>(null);
-  const [paused, setPaused] = useState(true);
+  const [isHoveringOrbit, setIsHoveringOrbit] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const lastButtonRef = useRef<HTMLButtonElement | null>(null);
   const orbitRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +57,7 @@ export function OrbitSkills() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && selected) {
         setSelected(null);
-        setPaused(true);
+        setIsHoveringOrbit(false);
         lastButtonRef.current?.focus();
       }
     };
@@ -38,7 +69,7 @@ export function OrbitSkills() {
   const selectSkill = (skill: Skill, button: HTMLButtonElement) => {
     lastButtonRef.current = button;
     setSelected(skill);
-    setPaused(true);
+    setIsHoveringOrbit(false);
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const panel = panelRef.current;
@@ -58,26 +89,38 @@ export function OrbitSkills() {
 
   const closePanel = () => {
     setSelected(null);
-    setPaused(true);
+    setIsHoveringOrbit(false);
     lastButtonRef.current?.focus();
   };
 
-  const renderOrbit = (orbit: "inner" | "outer") => {
-    const items = skills.filter((skill) => skill.orbit === orbit);
-    return items.map((skill, index) => {
-      const angle = (360 / items.length) * index;
+  const featuredSkills = featuredSkillIds
+    .map((id) => skills.find((skill) => skill.id === id))
+    .filter((skill): skill is Skill => Boolean(skill));
+
+  const renderOrbit = () => {
+    return featuredSkills.map((skill, index) => {
+      const angle = (index / featuredSkills.length) * Math.PI * 2 - Math.PI / 2;
+      const x = 50 + Math.cos(angle) * 35;
+      const y = 50 + Math.sin(angle) * 40;
       return (
         <button
           key={skill.id}
           type="button"
-          className={`orbit-card orbit-card-${orbit} ${selected?.id === skill.id ? "is-selected" : ""}`}
-          style={{ "--angle": `${angle}deg`, "--accent": skill.accent } as React.CSSProperties}
+          className={`orbit-card ${selected?.id === skill.id ? "is-selected" : ""}`}
+          style={
+            {
+              "--accent": skill.accent,
+              "--float-delay": `${index * -0.55}s`,
+              left: `${x}%`,
+              top: `${y}%`,
+            } as React.CSSProperties
+          }
           onClick={(event) => selectSkill(skill, event.currentTarget)}
           aria-expanded={selected?.id === skill.id}
           aria-controls="skill-detail-panel"
         >
-          <span className="orbit-icon">{skill.icon}</span>
-          <span>{skill.name}</span>
+          <span className="orbit-icon">{orbitSymbols[skill.id] ?? skill.icon}</span>
+          <span>{shortLabels[skill.id] ?? skill.name}</span>
         </button>
       );
     });
@@ -86,27 +129,34 @@ export function OrbitSkills() {
   return (
     <section id="habilidades" className="section-wrap overflow-hidden">
       <div className="mx-auto max-w-3xl text-center">
-        <p className="handwritten text-3xl text-[#eb5d45]">Skills</p>
-        <h2 className="mt-2 text-4xl font-black tracking-normal text-[#2f261f] sm:text-5xl">Habilidades que orbitan</h2>
+        <p className="skills-kicker">orbitando en mi día a día</p>
+        <h2 className="skills-heading">Skills</h2>
         <p className="mt-4 text-base leading-8 text-[#5e554f]">
-          Estas son algunas de las capacidades, herramientas y áreas que forman parte de mi trabajo diario.
+          Creo en el diseño como una herramienta para hacer la vida un poco mas clara,
+          mas accesible y mas humana. Estas son algunas herramientas y capacidades que orbitan mi trabajo diario.
         </p>
       </div>
       <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-center">
         <div
           ref={orbitRef}
-          className={`orbit-stage ${paused || selected ? "is-paused" : ""}`}
-          onMouseEnter={() => setPaused(false)}
-          onMouseLeave={() => !selected && setPaused(true)}
+          className={`orbit-stage ${!isHoveringOrbit || selected ? "is-paused" : ""}`}
+          onMouseEnter={() => setIsHoveringOrbit(true)}
+          onMouseLeave={() => setIsHoveringOrbit(false)}
         >
+          <div className="orbit-ring orbit-ring-guide" />
           <div className="orbit-ring orbit-ring-outer" />
           <div className="orbit-ring orbit-ring-inner" />
+          <svg className="orbit-lines" viewBox="0 0 760 620" aria-hidden="true">
+            <ellipse className="orbit-line orbit-line-solid" cx="380" cy="310" rx="305" ry="170" transform="rotate(16 380 310)" />
+            <ellipse className="orbit-line" cx="380" cy="310" rx="330" ry="250" transform="rotate(-13 380 310)" />
+            <ellipse className="orbit-line" cx="380" cy="310" rx="255" ry="140" transform="rotate(-2 380 310)" />
+            <ellipse className="orbit-line" cx="380" cy="310" rx="230" ry="285" transform="rotate(17 380 310)" />
+          </svg>
           <div className="orbit-center">
+            <small>centro</small>
             <span>Diseño UX/UI</span>
-            <small>Claridad · Función · Experiencia</small>
           </div>
-          <div className="orbit-layer orbit-layer-inner">{renderOrbit("inner")}</div>
-          <div className="orbit-layer orbit-layer-outer">{renderOrbit("outer")}</div>
+          <div className="orbit-layer">{renderOrbit()}</div>
         </div>
         <SkillDetailPanel skill={selected} panelRef={panelRef} onClose={closePanel} />
       </div>

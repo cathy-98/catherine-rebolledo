@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CharacterInteraction } from "./CharacterInteraction";
 
 export function About() {
   return (
@@ -14,7 +15,7 @@ export function About() {
       <div className="about-figma-grid">
         <div className="about-illustration">
           <Image className="about-hello" src="/figma/about-hello.svg" alt="" width={145} height={124} />
-          <Image src="/figma/about-character.svg" alt="Ilustracion lineal de Catherine" width={384} height={404} />
+          <CharacterInteraction className="about-character-interaction" />
         </div>
 
         <div className="about-copy">
@@ -25,10 +26,11 @@ export function About() {
           </div>
           <div className="about-text">
             <p>
-              Hola, soy <strong>Catherine Rebolledo</strong>, diseñadora enfocada en UX/UI sin dejar de lado mi lado gráfico y visual. Creo experiencias que se ven bien, funcionan y se piensan desde el usuario.
+              Hola, soy <strong>Catherine Rebolledo</strong>, Soy bastante observadora, detallista y de las que necesita entender bien algo antes de empezar a mover cosas. Me gusta ordenar, probar y ajustar hasta que todo se sienta claro y coherente.
+Fuera del computador, paso mucho tiempo con mi gata, corro de vez en cuando y una visita a algún cerro siempre ayuda a despejar la cabeza. 
             </p>
             <p>
-              Menos es más... pero siempre hay espacio para un buen café y mejores ideas.
+             <strong>  Menos es más... </strong> excepto cuando hablamos de café y buenas ideas.
             </p>
           </div>
         </div>

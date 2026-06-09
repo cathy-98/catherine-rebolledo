@@ -1,58 +1,83 @@
 const services = [
   {
-    icon: "UI",
-    title: "Diseño UX/UI y producto digital",
+    label: "Experiencia",
+    title: "UX/UI y producto digital",
     description:
-      "Diseño interfaces, flujos, formularios, dashboards y experiencias digitales centradas en claridad, funcionalidad y objetivos de negocio.",
-    bullets: ["Flujos", "Interfaces", "Dashboards"],
+      "Ordeno flujos, pantallas y componentes para que una plataforma sea más clara, usable y coherente.",
+    value: "Aporte: claridad en procesos complejos y decisiones visuales que ayudan a avanzar.",
+    deliverables: ["Flujos", "Wireframes", "UI", "Prototipo"],
+    bestFor: "Plataformas, dashboards, formularios y productos internos.",
+    accent: "#f4b7a8",
   },
   {
-    icon: "WEB",
-    title: "Diseño web",
+    label: "Presencia",
+    title: "Web, marca y landing pages",
     description:
-      "Diseño landing pages, webs corporativas, portafolios y experiencias responsive preparadas para desarrollo o publicación.",
-    bullets: ["Landing pages", "Responsive", "Handoff"],
+      "Estructuro la historia, el contenido y la estética para que una marca se entienda y se vea consistente.",
+    value: "Aporte: dirección visual, jerarquía y una experiencia preparada para comunicar mejor.",
+    deliverables: ["Arquitectura", "Identidad visual", "Responsive", "Handoff"],
+    bestFor: "Marcas personales, servicios, consultoras y negocios digitales.",
+    accent: "#d8c5ff",
   },
   {
-    icon: "VIS",
-    title: "Diseño visual y redes sociales",
+    label: "Comunicación",
+    title: "Redes y contenido visual",
     description:
-      "Creo piezas visuales para marcas, campañas y contenido digital, manteniendo coherencia entre identidad, comunicación y formato.",
-    bullets: ["Posts", "Carruseles", "Banners"],
+      "Diseño piezas, carruseles, presentaciones y sistemas gráficos para que el mensaje no se sienta improvisado.",
+    value: "Aporte: coherencia entre marca, tono y piezas de comunicación.",
+    deliverables: ["RRSS", "Carruseles", "Banners", "Presentaciones"],
+    bestFor: "Campañas, lanzamientos, contenido editorial y material comercial.",
+    accent: "#ffe08a",
   },
   {
-    icon: "UX",
-    title: "Mejora de productos y plataformas",
+    label: "Mejora",
+    title: "Auditoría y rediseño",
     description:
-      "Analizo productos existentes para ordenar flujos, mejorar formularios, reducir fricción y fortalecer la experiencia visual.",
-    bullets: ["Auditoria", "Orden", "Mejora"],
+      "Reviso lo que ya existe, detecto fricción y propongo mejoras visuales, de contenido o experiencia.",
+    value: "Aporte: priorizar cambios que ordenan sin rehacer todo desde cero.",
+    deliverables: ["Diagnóstico", "Prioridades", "Mejoras UX/UI", "Guía de ajustes"],
+    bestFor: "Sitios, productos o marcas que ya existen pero se sienten confusos.",
+    accent: "#c9e8d0",
   },
 ];
 
 export function Services() {
   return (
-    <section id="servicios" className="section-wrap">
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="handwritten text-3xl text-[#eb5d45]">servicios</p>
-        <h2 className="mt-2 text-4xl font-black tracking-normal text-[#2f261f] sm:text-5xl">¿En qué puedo ayudarte?</h2>
+    <section id="servicios" className="section-wrap services-section">
+      <div className="services-heading">
+        <p className="section-kicker">servicios + aporte</p>
+        <h2 className="section-title">Cómo puedo ayudarte</h2>
+        <p>
+          En vez de separar metodología, aporte y servicio en mil bloques, lo
+          resumo aquí: qué puedo hacer, qué valor aporta y qué podrías recibir.
+        </p>
       </div>
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
-        {services.map((service) => (
-          <article key={service.title} className="service-card">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#d9c2ff] text-xs font-black text-[#2f261f]">
-              {service.icon}
-            </span>
-            <h3 className="mt-5 text-2xl font-black text-[#2f261f]">{service.title}</h3>
-            <p className="mt-4 text-base leading-8 text-[#5e554f]">{service.description}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {service.bullets.map((bullet) => (
-                <span key={bullet} className="rounded-full bg-[#f8f3ea] px-3 py-1.5 text-sm font-semibold text-[#5e554f]">
-                  {bullet}
-                </span>
-              ))}
+
+      <div className="services-showcase">
+        {services.map((service, index) => (
+          <article
+            key={service.title}
+            className="service-card"
+            style={{ "--service-accent": service.accent } as React.CSSProperties}
+          >
+            <div className="service-card-top">
+              <span>{service.label}</span>
+              <small>0{index + 1}</small>
             </div>
-            <a href="#contacto" className="mt-6 inline-flex min-h-11 items-center text-sm font-black text-[#eb5d45] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45]">
-              Conversar sobre esto
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <p className="service-value">{service.value}</p>
+            <div className="service-best-for">
+              <strong>Ideal para</strong>
+              <span>{service.bestFor}</span>
+            </div>
+            <ul className="service-deliverables">
+              {service.deliverables.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <a href="#contacto" className="service-link">
+              Conversar sobre esto <span aria-hidden="true">↗</span>
             </a>
           </article>
         ))}

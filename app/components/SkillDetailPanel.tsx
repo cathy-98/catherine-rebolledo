@@ -58,10 +58,19 @@ export function SkillDetailPanel({ skill, panelRef, onClose }: SkillDetailPanelP
             href={`#${skill.relatedProjectId}`}
             className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[#2f261f] px-5 text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#eb5d45]"
           >
-            Ver proyecto relacionado
+            Ver caso relacionado
           </a>
         </div>
-      ) : null}
+      ) : (
+        <div className="skill-panel-empty">
+          <p className="section-kicker">elige una órbita</p>
+          <h3>Ver dónde lo he aplicado</h3>
+          <p>
+            Selecciona una habilidad para ver proyectos, experiencia laboral y
+            piezas donde aparece de forma concreta.
+          </p>
+        </div>
+      )}
     </aside>
   );
 }

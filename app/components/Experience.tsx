@@ -1,38 +1,61 @@
-const experienceAreas = [
-  "Diseño UX/UI",
-  "Producto digital",
-  "Diseño visual y redes sociales",
-  "Diseño web",
-  "Coordinacion de proyectos",
-  "Apoyo frontend",
-  "Trabajo con equipos multidisciplinarios",
+const experienceItems = [
+  {
+    context: "Elitsoft",
+    period: "2024 - Actualidad",
+    role: "UX/UI Designer, Jefa de Proyecto & enfoque Frontend",
+    description:
+      "Diseño interfaces, flujos, formularios, dashboards, prototipos y componentes reutilizables en Figma para productos digitales B2B, colaborando con frontend y levantamiento de requerimientos.",
+  },
+  {
+    context: "Diseñadora independiente",
+    period: "2024 - Actualidad",
+    role: "Freelancer",
+    description:
+      "Desarrollo y rediseño identidades visuales, contenido digital para redes sociales y piezas promocionales, adaptando mensaje, tono e identidad visual a cada cliente.",
+  },
+  {
+    context: "Plan OK",
+    period: "2022 - 2024",
+    role: "Customer Support & UX/UI Designer",
+    description:
+      "Resolví problemas de sistema y atención de usuarios, implementé mejoras en procesos internos y desarrollé identidad visual, manual corporativo y material de capacitación.",
+  },
+  {
+    context: "Dr. Feelgood",
+    period: "2020 - 2022",
+    role: "Asistente comercial y Administrativa",
+    description:
+      "Gestioné marketing digital, redes sociales, apoyo a community management, captación de clientes y coordinación de comunicaciones para campañas y pacientes.",
+  },
 ];
 
 export function Experience() {
   return (
     <section id="experiencia" className="section-wrap">
-      <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-        <div>
-          <p className="handwritten text-3xl text-[#7650a5]">recorrido</p>
-          <h2 className="mt-2 text-4xl font-black tracking-normal text-[#2f261f] sm:text-5xl">Experiencia</h2>
-          <p className="mt-4 text-base leading-8 text-[#5e554f]">
-            Una timeline editable para ordenar roles, proyectos y colaboraciones sin inventar empresas, fechas ni cifras.
-          </p>
-        </div>
-        <div className="rounded-[2rem] border border-[#2f261f]/10 bg-white/75 p-6 shadow-[0_18px_45px_rgba(54,43,35,0.08)]">
-          <div className="space-y-6 border-l-2 border-dashed border-[#7650a5]/35 pl-6">
-            {experienceAreas.map((area, index) => (
-              <article key={area} className="relative">
-                <span className="absolute -left-[33px] top-1 h-4 w-4 rounded-full border-4 border-white bg-[#eb5d45] shadow" />
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8b7b72]">Fecha editable · Rol editable {index + 1}</p>
-                <h3 className="mt-2 text-xl font-black text-[#2f261f]">{area}</h3>
-                <p className="mt-2 text-sm leading-7 text-[#5e554f]">
-                  Espacio preparado para describir responsabilidades, contexto del proyecto y equipo involucrado.
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="section-kicker">recorrido</p>
+        <h2 className="section-title">Experiencia</h2>
+        <p className="mt-4 text-base leading-8 text-[#5e554f]">
+          Lo más relevante de mi recorrido: producto digital, diseño UX/UI, comunicación visual y mejora de procesos.
+        </p>
+      </div>
+
+      <div className="experience-timeline">
+        {experienceItems.map((item, index) => (
+          <article key={item.role} className="experience-row">
+            <div className="experience-context">
+              <h3>{item.context}</h3>
+              <p>{item.period}</p>
+            </div>
+            <div className="experience-marker" aria-hidden="true">
+              <span className={index === 1 ? "is-purple" : ""} />
+            </div>
+            <div className="experience-detail">
+              <h3>{item.role}</h3>
+              <p>{item.description}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

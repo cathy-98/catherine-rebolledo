@@ -151,11 +151,11 @@ export const skills: Skill[] = [
     accent: "#f4b7a8",
     orbit: "outer",
     description:
-      "Ideacion, prompting, apoyo en investigacion, generacion visual y prototipado design-to-code.",
-    abilities: ["Ideacion", "Prompting", "Recursos visuales", "Design-to-code"],
-    tools: ["ChatGPT", "Claude", "Gemini", "Stitch", "Figma Make"],
-    projects: ["Lab"],
-    relatedProjectId: "lab",
+      "Apoyo en ideacion, referencias, redaccion de contenidos, exploracion visual y prototipos para acelerar decisiones de diseño.",
+    abilities: ["Ideacion", "Prompting", "Referencias", "Exploracion visual"],
+    tools: ["ChatGPT", "Gemini", "Figma Make"],
+    projects: ["Elitsoft", "Diseñadora independiente", "Rediseño web consultora TI"],
+    relatedProjectId: "experiencia",
   },
   {
     id: "nocode",
@@ -164,11 +164,11 @@ export const skills: Skill[] = [
     accent: "#d8c5ff",
     orbit: "outer",
     description:
-      "Herramientas visuales para prototipos publicables, sitios y soluciones iniciales.",
+      "Herramientas visuales para prototipos publicables, sitios y soluciones iniciales sin perder criterio de diseño.",
     abilities: ["Framer", "Webflow", "Prototipos publicables", "Herramientas visuales"],
     tools: ["Framer", "Webflow", "Notion"],
-    projects: ["Lab"],
-    relatedProjectId: "lab",
+    projects: ["Rediseño web consultora TI", "Diseñadora independiente"],
+    relatedProjectId: "consultora-ti",
   },
   {
     id: "automatizacion",
@@ -177,11 +177,11 @@ export const skills: Skill[] = [
     accent: "#c9e8d0",
     orbit: "outer",
     description:
-      "Exploracion de formularios, webhooks e integraciones para ordenar procesos digitales.",
-    abilities: ["Formularios", "Flujos", "Webhooks", "Procesos"],
-    tools: ["No-code", "Notion", "ClickUp"],
-    projects: ["Lab"],
-    relatedProjectId: "lab",
+      "Orden de procesos, formularios y flujos internos pensados para reducir tareas manuales y mejorar seguimiento.",
+    abilities: ["Formularios", "Flujos", "Procesos", "Documentacion"],
+    tools: ["Notion", "ClickUp", "FigJam"],
+    projects: ["Elitsoft", "Plan OK", "Plataforma de reclutamiento"],
+    relatedProjectId: "experiencia",
   },
 ];
 
@@ -197,6 +197,8 @@ export const projects: Project[] = [
     tags: ["Invitaciones", "Experiencia movil", "Flujos", "Plantillas", "Promociones"],
     accent: "#f7c8d2",
     note: "modular y celebratorio",
+    outcome: "Ordené una experiencia de invitaciones digitales con flujos más claros, plantillas reutilizables y una base visual consistente.",
+    fit: "Ideal si necesitas transformar una idea de producto en una experiencia navegable.",
   },
   {
     id: "reclutamiento",
@@ -209,6 +211,8 @@ export const projects: Project[] = [
     tags: ["Candidatos", "Roles", "Evaluaciones", "Timer", "Filtros"],
     accent: "#bfe5ff",
     note: "menos friccion en procesos largos",
+    outcome: "Organicé formularios, filtros y estados para que un proceso complejo de selección se sintiera más guiado y manejable.",
+    fit: "Ideal para plataformas internas, dashboards o procesos con muchos pasos.",
   },
   {
     id: "consultora-ti",
@@ -221,6 +225,8 @@ export const projects: Project[] = [
     tags: ["Arquitectura", "Servicios", "Responsive", "CTA", "Confianza"],
     accent: "#c9e8d0",
     note: "contenido con aire y direccion",
+    outcome: "Reorganicé la jerarquía del sitio para explicar mejor servicios, generar confianza y llevar al usuario hacia la acción.",
+    fit: "Ideal si tu web existe, pero no comunica bien lo que haces.",
   },
   {
     id: "visual-digital",
@@ -233,5 +239,7 @@ export const projects: Project[] = [
     tags: ["Posts", "Carruseles", "Banners", "Campanas", "Presentaciones"],
     accent: "#ffe08a",
     note: "piezas que ordenan el mensaje",
+    outcome: "Construí piezas y sistemas visuales para que el contenido digital tuviera coherencia, ritmo y una intención clara.",
+    fit: "Ideal para marcas que necesitan verse consistentes en redes, campañas o presentaciones.",
   },
 ];
