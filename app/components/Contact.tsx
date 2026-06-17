@@ -4,10 +4,11 @@ import { useRef, useState } from "react";
 import type { DragEvent } from "react";
 
 const projectTypes = [
-  "UX/UI",
+  "Experiencia digital / UX/UI",
   "Diseño web",
-  "Producto digital",
-  "Automatización / Lab",
+  "Marca visual / logo",
+  "Contenido o RRSS",
+  "Optimización de algo existente",
   "Aún no lo sé",
 ];
 
@@ -28,7 +29,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contacto" className="contact-section" aria-labelledby="contact-title">
+    <section id="contacto" className="contact-section" aria-labelledby="contact-title" data-reveal="section">
       <form
         className="contact-card"
         action="mailto:Cathyrbopas@gmail.com"
@@ -36,6 +37,7 @@ export function Contact() {
         encType="text/plain"
         data-automation-ready="true"
         data-lab-flow="brief-intake"
+        data-reveal="sheet"
       >
         <input type="hidden" name="origen" value="portfolio-contact" />
 
@@ -43,11 +45,11 @@ export function Contact() {
           <span className="contact-spark" aria-hidden="true">✦</span>
           <p className="section-kicker">conversemos</p>
           <h2 id="contact-title">
-            ¿Tienes una <span>idea</span> y no sabes cómo ordenarla?
+            Cuéntame qué necesitas <span>ordenar</span>
           </h2>
           <p>
-            Cuéntame qué quieres diseñar, ordenar o automatizar. Yo te ayudo a
-            bajarlo a una experiencia clara, visual y funcional.
+            Lo uso como brief inicial: contexto, referencias y próximos pasos
+            para entender si necesitas UX/UI, web, marca o una mejora visual.
           </p>
           <div className="contact-cta-actions" aria-label="Acciones de contacto">
             <a className="contact-pill contact-pill-primary" href="mailto:Cathyrbopas@gmail.com">
@@ -59,7 +61,7 @@ export function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              Ver LinkedIn <span aria-hidden="true">in</span>
+              Ver Linkedin
             </a>
           </div>
           <span className="contact-chat-doodle" aria-hidden="true">
@@ -99,7 +101,7 @@ export function Contact() {
             <textarea
               name="mensaje"
               rows={5}
-              placeholder="¿Qué quieres ordenar, diseñar o automatizar?"
+              placeholder="Cuéntame qué tienes, qué te preocupa y qué te gustaría lograr."
             />
           </label>
           <label
@@ -116,13 +118,13 @@ export function Contact() {
             <span aria-hidden="true">↥</span>
             <strong>Adjuntar archivo o referencia</strong>
             <small>
-              {fileName || "PDF, imagen, brief o captura. También puedes arrastrarlo aquí."}
+              {fileName || "PDF, imagen, brief, logo o captura. También puedes arrastrarlo aquí."}
             </small>
           </label>
         </div>
 
         <button type="submit" className="contact-submit">
-          Enviar idea <span aria-hidden="true">♡</span>
+          Enviar brief <span aria-hidden="true">♡</span>
         </button>
       </form>
     </section>

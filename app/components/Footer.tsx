@@ -3,21 +3,20 @@ const footerLinks = [
   { label: "Habilidades", href: "#habilidades" },
   { label: "Proyectos", href: "#proyectos" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Lab", href: "#lab" },
   { label: "Contacto", href: "#contacto" },
 ];
 
 export function Footer() {
   return (
     <footer className="site-footer">
-      <div className="site-footer-grid">
+      <div className="site-footer-grid" data-reveal="up">
         <div className="site-footer-brand">
           <a href="#inicio" className="footer-logo" aria-label="Volver al inicio">
             Cath<span>.</span>
           </a>
           <p>
-            Diseño experiencias digitales claras, funcionales y visualmente
-            cuidadas.
+            Diseño experiencias, marcas y piezas digitales con claridad,
+            intención visual y criterio práctico.
           </p>
         </div>
 
@@ -37,7 +36,7 @@ export function Footer() {
           <ul className="footer-contact-list">
             <li>
               <span aria-hidden="true">✉</span>
-              <a href="mailto:Cathyrbopas@gmail.com">Cathyrbopas@gmail.com</a>
+              <a href="mailto:Cathyrbopas@gmail.com">Cathyrebopas@gmail.com</a>
             </li>
             <li>
               <span aria-hidden="true">⌂</span>
@@ -60,7 +59,7 @@ export function Footer() {
       </div>
 
       <p className="site-footer-copy">
-        © 2024 Catherine Rebolledo. Todos los derechos reservados.
+        © 2026 Catherine Rebolledo. Todos los derechos reservados.
       </p>
     </footer>
   );

@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 const experienceItems = [
   {
     context: "Elitsoft",
@@ -31,8 +33,8 @@ const experienceItems = [
 
 export function Experience() {
   return (
-    <section id="experiencia" className="section-wrap">
-      <div className="mx-auto max-w-3xl text-center">
+    <section id="experiencia" className="section-wrap" data-reveal="section">
+      <div className="mx-auto max-w-3xl text-center" data-reveal="up">
         <p className="section-kicker">recorrido</p>
         <h2 className="section-title">Experiencia</h2>
         <p className="mt-4 text-base leading-8 text-[#5e554f]">
@@ -42,7 +44,12 @@ export function Experience() {
 
       <div className="experience-timeline">
         {experienceItems.map((item, index) => (
-          <article key={item.role} className="experience-row">
+          <article
+            key={item.role}
+            className="experience-row"
+            data-reveal="up"
+            style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
+          >
             <div className="experience-context">
               <h3>{item.context}</h3>
               <p>{item.period}</p>

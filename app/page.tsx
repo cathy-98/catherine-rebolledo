@@ -4,10 +4,10 @@ import { DecorativeFloaters } from "./components/DecorativeFloaters";
 import { Experience } from "./components/Experience";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
-import { Lab } from "./components/Lab";
 import { Navigation } from "./components/Navigation";
 import { OrbitSkills } from "./components/OrbitSkills";
 import { Projects } from "./components/Projects";
+import { ScrollImmersion } from "./components/ScrollImmersion";
 import { Services } from "./components/Services";
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
     <div className="site-shell relative min-h-screen text-[#2f261f]">
       <DecorativeFloaters />
       <Navigation />
+      <ScrollImmersion />
       <main className="relative z-10">
         <Hero />
         <About />
@@ -22,7 +23,6 @@ export default function Home() {
         <Projects />
         <Experience />
         <Services />
-        <Lab />
         <Contact />
       </main>
       <Footer />

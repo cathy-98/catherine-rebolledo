@@ -127,7 +127,7 @@ export const skills: Skill[] = [
     description:
       "HTML, CSS, Tailwind, Bootstrap y Angular basico como puente entre diseno y codigo.",
     abilities: ["HTML", "CSS", "Tailwind", "Bootstrap", "Angular basico"],
-    tools: ["VS Code", "Git", "GitHub"],
+    tools: ["Angular", "HTML", "CSS", "Tailwind", "Bootstrap", "VS Code", "Git", "GitHub"],
     projects: ["Rediseño web consultora TI"],
     relatedProjectId: "consultora-ti",
   },
