@@ -23,4 +23,5 @@ export type Project = {
   note: string;
   outcome: string;
   fit: string;
+  coverImage?: string;
 };

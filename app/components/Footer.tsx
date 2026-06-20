@@ -36,7 +36,7 @@ export function Footer() {
           <ul className="footer-contact-list">
             <li>
               <span aria-hidden="true">✉</span>
-              <a href="mailto:Cathyrbopas@gmail.com">Cathyrebopas@gmail.com</a>
+              <a href="mailto:Cathyrbopas@gmail.com">Cathyrbopas@gmail.com</a>
             </li>
             <li>
               <span aria-hidden="true">⌂</span>

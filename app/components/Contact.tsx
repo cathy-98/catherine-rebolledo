@@ -7,7 +7,7 @@ const projectTypes = [
   "Experiencia digital / UX/UI",
   "Diseño web",
   "Marca visual / logo",
-  "Contenido o RRSS",
+  "Diseño visual o RRSS",
   "Optimización de algo existente",
   "Aún no lo sé",
 ];
@@ -48,8 +48,8 @@ export function Contact() {
             Cuéntame qué necesitas <span>ordenar</span>
           </h2>
           <p>
-            Lo uso como brief inicial: contexto, referencias y próximos pasos
-            para entender si necesitas UX/UI, web, marca o una mejora visual.
+            Este formulario queda como brief inicial: contexto, referencias y próximos
+            pasos para entender si necesitas UX/UI, web, marca o una mejora visual.
           </p>
           <div className="contact-cta-actions" aria-label="Acciones de contacto">
             <a className="contact-pill contact-pill-primary" href="mailto:Cathyrbopas@gmail.com">
@@ -61,7 +61,7 @@ export function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              Ver Linkedin
+              Ver LinkedIn
             </a>
           </div>
           <span className="contact-chat-doodle" aria-hidden="true">
@@ -72,7 +72,7 @@ export function Contact() {
         <div className="contact-fields">
           <label>
             Nombre
-            <input name="nombre" type="text" placeholder="Tu nombre" autoComplete="name" />
+            <input name="nombre" type="text" placeholder="Tu nombre" autoComplete="name" required />
           </label>
           <label>
             Correo
@@ -81,6 +81,7 @@ export function Contact() {
               type="email"
               placeholder="tu@email.com"
               autoComplete="email"
+              required
             />
           </label>
           <label>
@@ -102,6 +103,7 @@ export function Contact() {
               name="mensaje"
               rows={5}
               placeholder="Cuéntame qué tienes, qué te preocupa y qué te gustaría lograr."
+              required
             />
           </label>
           <label
@@ -118,7 +120,7 @@ export function Contact() {
             <span aria-hidden="true">↥</span>
             <strong>Adjuntar archivo o referencia</strong>
             <small>
-              {fileName || "PDF, imagen, brief, logo o captura. También puedes arrastrarlo aquí."}
+              {fileName || "PDF, imagen, brief, logo o captura. También puedes arrastrar el archivo aquí."}
             </small>
           </label>
         </div>

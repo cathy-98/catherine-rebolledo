@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Catherine Rebolledo | UX/UI & Producto Digital",
+  title: "Catherine Rebolledo | Diseñadora UX/UI",
   description:
-    "Portafolio profesional de Catherine Rebolledo, diseñadora UX/UI enfocada en producto digital, diseño web y comunicación visual.",
+    "Portfolio de Catherine Rebolledo, diseñadora UX/UI y comunicadora digital enfocada en productos digitales, diseño web, identidad visual y experiencias claras.",
+  openGraph: {
+    title: "Catherine Rebolledo | Diseñadora UX/UI",
+    description:
+      "Portfolio de Catherine Rebolledo, diseñadora UX/UI y comunicadora digital enfocada en productos digitales, diseño web, identidad visual y experiencias claras.",
+    type: "website",
+    locale: "es_CL",
+  },
 };
 
 export default function RootLayout({

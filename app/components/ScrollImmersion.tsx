@@ -6,9 +6,11 @@ export function ScrollImmersion() {
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealItems = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const root = document.documentElement;
 
     if (reduceMotion) {
       revealItems.forEach((item) => item.classList.add("is-visible"));
+      root.style.setProperty("--scroll-progress", "1");
       return;
     }
 
@@ -30,10 +32,14 @@ export function ScrollImmersion() {
     revealItems.forEach((item) => revealObserver.observe(item));
 
     const parallaxItems = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
+    const tiltItems = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
     let frame = 0;
 
     const updateParallax = () => {
       frame = 0;
+      const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      root.style.setProperty("--scroll-progress", `${Math.min(1, window.scrollY / maxScroll).toFixed(4)}`);
+
       const viewportCenter = window.innerHeight / 2;
 
       parallaxItems.forEach((item) => {
@@ -54,13 +60,46 @@ export function ScrollImmersion() {
     window.addEventListener("scroll", requestParallax, { passive: true });
     window.addEventListener("resize", requestParallax);
 
+    const handleTiltMove = (event: PointerEvent) => {
+      const target = event.currentTarget as HTMLElement;
+      const rect = target.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+
+      target.style.setProperty("--spot-x", `${(x * 100).toFixed(2)}%`);
+      target.style.setProperty("--spot-y", `${(y * 100).toFixed(2)}%`);
+      target.style.setProperty("--tilt-x", `${((0.5 - y) * 4).toFixed(2)}deg`);
+      target.style.setProperty("--tilt-y", `${((x - 0.5) * 4).toFixed(2)}deg`);
+      target.classList.add("is-tilting");
+    };
+
+    const handleTiltLeave = (event: PointerEvent) => {
+      const target = event.currentTarget as HTMLElement;
+      target.style.setProperty("--tilt-x", "0deg");
+      target.style.setProperty("--tilt-y", "0deg");
+      target.classList.remove("is-tilting");
+    };
+
+    tiltItems.forEach((item) => {
+      item.addEventListener("pointermove", handleTiltMove);
+      item.addEventListener("pointerleave", handleTiltLeave);
+    });
+
     return () => {
       revealObserver.disconnect();
       window.removeEventListener("scroll", requestParallax);
       window.removeEventListener("resize", requestParallax);
       if (frame) window.cancelAnimationFrame(frame);
+      tiltItems.forEach((item) => {
+        item.removeEventListener("pointermove", handleTiltMove);
+        item.removeEventListener("pointerleave", handleTiltLeave);
+      });
     };
   }, []);
 
-  return null;
+  return (
+    <div className="scroll-immersion-guide" aria-hidden="true">
+      <span />
+    </div>
+  );
 }

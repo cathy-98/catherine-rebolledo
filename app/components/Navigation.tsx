@@ -18,7 +18,7 @@ export function Navigation() {
 
   return (
     <header className="pointer-events-none fixed left-0 right-0 top-5 z-50 px-4">
-      <nav className="floating-nav pointer-events-auto mx-auto flex items-center justify-between" aria-label="Navegacion principal">
+      <nav className="floating-nav pointer-events-auto mx-auto flex items-center justify-between" aria-label="Navegación principal">
         <a href="#inicio" className="floating-brand handwritten focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8d35db]">
           Cath
         </a>
@@ -27,10 +27,10 @@ export function Navigation() {
           type="button"
           aria-expanded={open}
           aria-controls="mobile-menu"
-          aria-label={open ? "Cerrar menu" : "Abrir menu"}
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setOpen((value) => !value)}
         >
-          {open ? "Cerrar" : "Menu"}
+          {open ? "Cerrar" : "Menú"}
         </button>
         <div className="hidden items-center gap-5 lg:flex">
           {navItems.map(([label, href]) => (
