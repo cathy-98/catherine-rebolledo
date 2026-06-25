@@ -24,4 +24,5 @@ export type Project = {
   outcome: string;
   fit: string;
   coverImage?: string;
+  projectUrl?: string;
 };

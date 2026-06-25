@@ -200,6 +200,7 @@ export const projects: Project[] = [
     outcome: "Desarrollé una propuesta visual y de flujo para apoyar recorridos urbanos con información clara, lectura rápida y foco en accesibilidad.",
     fit: "Ideal para mostrar diseño de producto aplicado a movilidad, inclusión y experiencias guiadas.",
     coverImage: "/projects/caminai-cover.png",
+    projectUrl: "https://www.behance.net/gallery/233457877/CaminAi",
   },
   {
     id: "fiestand",

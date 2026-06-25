@@ -2453,6 +2453,8 @@ body::after {
 }
 
 .showcase-project-card {
+  --project-radius: clamp(1.35rem, 2vw, 2rem);
+
   position: relative;
   min-height: 300px;
   overflow: hidden;
@@ -2462,8 +2464,9 @@ body::after {
     linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 250, 241, 0.88)),
     radial-gradient(circle at 22% 20%, color-mix(in srgb, var(--project-accent) 28%, transparent), transparent 18rem);
   border: 1px solid rgba(118, 80, 165, 0.13);
-  border-radius: clamp(1.35rem, 2vw, 2rem);
+  border-radius: var(--project-radius);
   box-shadow: 0 22px 55px rgba(54, 43, 35, 0.08);
+  clip-path: inset(0 round var(--project-radius));
   isolation: isolate;
   transition:
     opacity 700ms ease var(--reveal-delay, 0ms),
@@ -2510,19 +2513,27 @@ body::after {
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  border-radius: inherit;
   background:
     radial-gradient(circle at 72% 22%, color-mix(in srgb, var(--project-accent) 38%, white 62%), transparent 9rem),
     radial-gradient(circle at 20% 88%, rgba(188, 227, 214, 0.42), transparent 15rem),
     linear-gradient(135deg, rgba(255, 255, 255, 0.46), rgba(255, 250, 241, 0.94));
   transition:
-    filter 240ms ease,
     transform 240ms ease;
 }
 
 .showcase-project-image {
+  border-radius: inherit;
   object-fit: cover;
   object-position: center;
   filter: saturate(0.98) contrast(1.02);
+  transition:
+    filter 240ms ease,
+    transform 240ms ease;
+}
+
+.showcase-project-card-1 .showcase-project-image {
+  object-position: 86% center;
 }
 
 .showcase-project-cover:has(.showcase-project-image)::before,
@@ -2536,11 +2547,17 @@ body::after {
 }
 
 .showcase-project-card:has(.showcase-project-image) .showcase-project-label {
+  max-width: min(58%, 360px);
   background: rgba(255, 250, 241, 0.76);
 }
 
 .showcase-project-card:hover .showcase-project-cover,
 .showcase-project-card:focus-visible .showcase-project-cover {
+  transform: scale(1.025);
+}
+
+.showcase-project-card:hover .showcase-project-image,
+.showcase-project-card:focus-visible .showcase-project-image {
   filter: blur(2px) saturate(0.95);
   transform: scale(1.025);
 }
@@ -4206,6 +4223,10 @@ body::after {
     grid-column: 1 / -1;
   }
 
+  .showcase-project-card-1 .showcase-project-image {
+    object-position: 92% center;
+  }
+
   .showcase-project-overlay {
     opacity: 1;
     transform: none;
@@ -4546,6 +4567,12 @@ body::after {
   .showcase-project-card-4,
   .showcase-project-card-5 {
     min-height: 390px;
+  }
+
+  .showcase-project-card-1 .showcase-project-image {
+    object-fit: contain;
+    object-position: center;
+    background: #050505;
   }
 
   .showcase-project-cover::before {

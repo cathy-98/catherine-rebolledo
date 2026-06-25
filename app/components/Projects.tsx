@@ -40,7 +40,7 @@ export function Projects() {
           <a
             id={project.id}
             key={project.id}
-            href="#contacto"
+            href={project.projectUrl ?? "#contacto"}
             className={`showcase-project-card showcase-project-card-${index + 1}`}
             style={
               {
@@ -50,7 +50,13 @@ export function Projects() {
             }
             data-reveal="project"
             data-tilt
-            aria-label={`Conversar sobre ${project.title}`}
+            target={project.projectUrl ? "_blank" : undefined}
+            rel={project.projectUrl ? "noreferrer" : undefined}
+            aria-label={
+              project.projectUrl
+                ? `Ver ${project.title} en Behance`
+                : `Conversar sobre ${project.title}`
+            }
           >
             <div className="showcase-project-cover" aria-hidden="true">
               {project.coverImage ? (
@@ -85,7 +91,7 @@ export function Projects() {
               <p>{project.description}</p>
               <p className="showcase-project-result">{project.outcome}</p>
               <small>
-                Ver más detalles <span aria-hidden="true">↗</span>
+                {project.projectUrl ? "Ver en Behance" : "Ver más detalles"} <span aria-hidden="true">↗</span>
               </small>
             </div>
           </a>
